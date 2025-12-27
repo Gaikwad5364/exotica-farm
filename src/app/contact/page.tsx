@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, MessageCircle, Send, CheckCircle } from 'lucide-react';
 import styles from './Contact.module.css';
 import { submitContactAction } from '../actions';
+import PhoneInput from '@/components/ui/PhoneInput';
 
 export default function ContactUsPage() {
     const [submitted, setSubmitted] = useState(false);
@@ -18,6 +19,10 @@ export default function ContactUsPage() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleCustomChange = (name: string, value: string) => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
@@ -153,14 +158,11 @@ export default function ContactUsPage() {
                                         />
                                     </div>
                                     <div className={styles.inputGroup}>
-                                        <label>Phone Number</label>
-                                        <input
-                                            type="tel"
-                                            name="phone"
-                                            required
-                                            placeholder="+91 91234 56789"
+                                        <PhoneInput
+                                            label="Phone Number"
                                             value={formData.phone}
-                                            onChange={handleChange}
+                                            onChange={(val) => handleCustomChange('phone', val)}
+                                            required
                                         />
                                     </div>
                                     <div className={styles.inputGroup}>

@@ -8,6 +8,7 @@ import { submitFarmVisitAction } from '../actions';
 
 import Select from '@/components/ui/Select';
 import DatePicker from '@/components/ui/DatePicker';
+import PhoneInput from '@/components/ui/PhoneInput';
 
 export default function FarmVisitPage() {
     const [submitted, setSubmitted] = useState(false);
@@ -187,14 +188,11 @@ export default function FarmVisitPage() {
                                             />
                                         </div>
                                         <div className={styles.inputGroup}>
-                                            <label>Phone Number</label>
-                                            <input
-                                                type="tel"
-                                                name="phone"
-                                                required
-                                                placeholder="+91 00000 00000"
+                                            <PhoneInput
+                                                label="Phone Number"
                                                 value={formData.phone}
-                                                onChange={handleChange}
+                                                onChange={(val) => handleCustomChange('phone', val)}
+                                                required
                                             />
                                         </div>
                                         <div className={styles.inputGroup}>
