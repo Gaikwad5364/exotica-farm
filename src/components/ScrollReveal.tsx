@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, ReactNode } from 'react';
-import { motion, useInView, useAnimation } from 'framer-motion';
+import { motion, useInView, useAnimation, Variants } from 'framer-motion';
 
 interface ScrollRevealProps {
     children: ReactNode;
@@ -28,7 +28,7 @@ export default function ScrollReveal({
         }
     }, [isInView, controls]);
 
-    const variants = {
+    const variants: Variants = {
         hidden: {
             opacity: 0,
             x: direction === 'left' ? -50 : direction === 'right' ? 50 : 0,
@@ -41,7 +41,7 @@ export default function ScrollReveal({
             transition: {
                 duration,
                 delay,
-                ease: [0.25, 0.1, 0.25, 1], // Smooth ease-out
+                ease: "easeOut"
             }
         }
     };
