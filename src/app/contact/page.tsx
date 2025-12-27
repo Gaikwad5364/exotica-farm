@@ -39,7 +39,7 @@ export default function ContactUsPage() {
         if (result.success) {
             setSubmitted(true);
         } else {
-            alert("Something went wrong. Please try again later.");
+            alert(result.error || "Something went wrong. Please try again later.");
         }
         setLoading(false);
     };

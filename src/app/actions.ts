@@ -26,9 +26,12 @@ export async function submitTestimonialAction(data: {
         revalidatePath('/admin/dashboard');
         revalidatePath('/admin/testimonials');
         return { success: true };
-    } catch (e) {
+    } catch (e: any) {
         console.error("Testimonial submission error:", e);
-        return { success: false, error: "Failed to submit review" };
+        return {
+            success: false,
+            error: e instanceof Error ? e.message : "Failed to submit review"
+        };
     }
 }
 
@@ -55,9 +58,12 @@ export async function submitContactAction(data: {
         revalidatePath('/admin/dashboard');
         revalidatePath('/admin/enquiries');
         return { success: true };
-    } catch (e) {
+    } catch (e: any) {
         console.error("Contact submission error:", e);
-        return { success: false, error: "Failed to send message" };
+        return {
+            success: false,
+            error: e instanceof Error ? e.message : "Failed to send message"
+        };
     }
 }
 
