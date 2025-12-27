@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import { MessageSquare, Mail, Calendar, CheckCircle } from "lucide-react";
 import StatCard from "./StatCard";
