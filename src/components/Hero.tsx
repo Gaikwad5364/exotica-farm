@@ -10,8 +10,8 @@ import styles from './Hero.module.css';
 const SLIDES = [
     {
         type: 'video',
-        src: 'https://player.vimeo.com/external/434045526.sd.mp4?s=c27dc3699bc6246fef9842a1fc4b0460db060411&profile_id=165&oauth2_token_id=57447761',
-        duration: 10000
+        src: '/images/Home%20Page%20Video.mp4',
+        duration: 8000
     },
     {
         type: 'image',
@@ -70,16 +70,8 @@ export default function Hero() {
         }
 
         const currentSlide = SLIDES[currentIndex];
-
-        if (currentSlide.type === 'image') {
-            const timer = setTimeout(nextSlide, currentSlide.duration);
-            return () => clearTimeout(timer);
-        }
-
-        if (currentSlide.type === 'video') {
-            const timer = setTimeout(nextSlide, 15000);
-            return () => clearTimeout(timer);
-        }
+        const timer = setTimeout(nextSlide, currentSlide.duration);
+        return () => clearTimeout(timer);
     }, [currentIndex, isManual]);
 
     if (!isLoaded) return <section className={styles.hero} style={{ background: '#001a00' }}></section>;
@@ -99,13 +91,14 @@ export default function Hero() {
                         {SLIDES[currentIndex].type === 'video' ? (
                             <video
                                 ref={videoRef}
-                                src={SLIDES[currentIndex].src}
                                 autoPlay
                                 muted
                                 playsInline
                                 onEnded={nextSlide}
                                 className={styles.media}
-                            />
+                            >
+                                <source src={SLIDES[currentIndex].src} type="video/mp4" />
+                            </video>
                         ) : (
                             <Image
                                 src={SLIDES[currentIndex].src}
@@ -156,6 +149,17 @@ export default function Hero() {
                     </Link>
                 </motion.div>
             </div>
+
+            <motion.div
+                className={styles.scrollIndicator}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2, duration: 1 }}
+            >
+                <div className={styles.mouse}>
+                    <div className={styles.wheel}></div>
+                </div>
+            </motion.div>
         </section>
     );
 }
