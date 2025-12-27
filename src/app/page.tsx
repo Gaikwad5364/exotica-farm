@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
 import InstagramFeed from "@/components/InstagramFeed";
 import Partners from "@/components/Partners";
+import ScrollReveal from "@/components/ScrollReveal";
 import styles from "./Home.module.css";
 
 export default function Home() {
@@ -40,29 +41,39 @@ export default function Home() {
         <div className="container">
           <div className={styles.storyContent}>
             <div className={styles.storyText}>
-              <h2>Where Tradition Meets Technology</h2>
-              <p>
-                At Exotica Farm, we believe in the future of agriculture. By combining traditional
-                farming wisdom with cutting-edge polyhouse technology, we create the perfect
-                environment for crops to thrive.
-              </p>
-              <p>
-                Our journey began with a simple mission: to provide the freshest, chemical-free
-                produce while preserving our soil and water resources. Today, we are proud to
-                be leaders in protected farming.
-              </p>
-              <Link href="/about" style={{ fontWeight: 600, color: 'var(--color-primary)', textDecoration: 'underline' }}>
-                Read Our Full Story
-              </Link>
+              <ScrollReveal direction="left">
+                <h2>Where Tradition Meets Technology</h2>
+              </ScrollReveal>
+              <ScrollReveal direction="left" delay={0.1}>
+                <p>
+                  At Exotica Farm, we believe in the future of agriculture. By combining traditional
+                  farming wisdom with cutting-edge polyhouse technology, we create the perfect
+                  environment for crops to thrive.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal direction="left" delay={0.2}>
+                <p>
+                  Our journey began with a simple mission: to provide the freshest, chemical-free
+                  produce while preserving our soil and water resources. Today, we are proud to
+                  be leaders in protected farming.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal direction="left" delay={0.3}>
+                <Link href="/about" style={{ fontWeight: 600, color: 'var(--color-primary)', textDecoration: 'underline' }}>
+                  Read Our Full Story
+                </Link>
+              </ScrollReveal>
             </div>
-            <div className={styles.imageGrid}>
-              <div className={styles.gridImage}>
-                <Image src="/images/cucumber.png" alt="Farm Greenery" fill style={{ objectFit: 'cover' }} />
+            <ScrollReveal direction="right" delay={0.2}>
+              <div className={styles.imageGrid}>
+                <div className={styles.gridImage}>
+                  <Image src="/images/cucumber.png" alt="Farm Greenery" fill style={{ objectFit: 'cover' }} />
+                </div>
+                <div className={styles.gridImage}>
+                  <Image src="/images/bell-pepper.png" alt="Fresh Harvest" fill style={{ objectFit: 'cover' }} />
+                </div>
               </div>
-              <div className={styles.gridImage}>
-                <Image src="/images/bell-pepper.png" alt="Fresh Harvest" fill style={{ objectFit: 'cover' }} />
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -70,59 +81,85 @@ export default function Home() {
       {/* CTA Section */}
       <section className={styles.ctaSection}>
         <div className="container">
-          <h2>Experience Farm Life</h2>
-          <p>Want to see how your food is grown? Book a visit to our farm today.</p>
-          <Link href="/farm-visit" className={styles.ctaButton}>
-            Schedule a Visit
-          </Link>
+          <ScrollReveal direction="up">
+            <h2>Experience Farm Life</h2>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.1}>
+            <p>Want to see how your food is grown? Book a visit to our farm today.</p>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.2}>
+            <Link href="/farm-visit" className={styles.ctaButton}>
+              Schedule a Visit
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Products Section */}
       <section className="section bg-light">
         <div className="container">
-          <h2 className={styles.sectionTitle}>Fresh From Farm</h2>
-          <p className={styles.sectionSubtitle}>
-            Discover our premium range of vegetables and fungi, harvested at the peak of freshness.
-          </p>
+          <ScrollReveal direction="up">
+            <h2 className={styles.sectionTitle}>Fresh From Farm</h2>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.1}>
+            <p className={styles.sectionSubtitle}>
+              Discover our premium range of vegetables and fungi, harvested at the peak of freshness.
+            </p>
+          </ScrollReveal>
           <div className={styles.grid}>
-            {products.map(product => (
-              <ProductCard key={product.id} product={product} />
+            {products.map((product, index) => (
+              <ScrollReveal key={product.id} direction="up" delay={0.1 * (index + 2)}>
+                <ProductCard product={product} />
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      <Partners />
+      <ScrollReveal direction="up">
+        <Partners />
+      </ScrollReveal>
 
       {/* Infrastructure Highlights */}
       <section className={`${styles.infraSection} section`}>
         <div className="container">
-          <h2 className={styles.sectionTitle}>Modern Infrastructure</h2>
-          <p className={styles.sectionSubtitle}>
-            Our farm utilizes advanced protective structures to ensure consistent quality year-round.
-          </p>
+          <ScrollReveal direction="up">
+            <h2 className={styles.sectionTitle}>Modern Infrastructure</h2>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.1}>
+            <p className={styles.sectionSubtitle}>
+              Our farm utilizes advanced protective structures to ensure consistent quality year-round.
+            </p>
+          </ScrollReveal>
           <div className={styles.grid}>
-            <Link href="/infrastructure#polyhouses" className={styles.infraCard}>
-              <span className={styles.infraIcon}>🛖</span>
-              <h3>Polyhouses</h3>
-              <p>Climate controlled cultivation for sensitive crops like Capsicum.</p>
-            </Link>
-            <Link href="/infrastructure#shadenets" className={styles.infraCard}>
-              <span className={styles.infraIcon}>🕸️</span>
-              <h3>Shade Nets</h3>
-              <p>Optimum light regulation for leafy greens and vegetables.</p>
-            </Link>
-            <Link href="/infrastructure#drip-irrigation" className={styles.infraCard}>
-              <span className={styles.infraIcon}>💧</span>
-              <h3>Drip Irrigation</h3>
-              <p>Water-efficient systems that deliver nutrients directly to roots.</p>
-            </Link>
+            <ScrollReveal direction="up" delay={0.2}>
+              <Link href="/infrastructure#polyhouses" className={styles.infraCard}>
+                <span className={styles.infraIcon}>🛖</span>
+                <h3>Polyhouses</h3>
+                <p>Climate controlled cultivation for sensitive crops like Capsicum.</p>
+              </Link>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.3}>
+              <Link href="/infrastructure#shadenets" className={styles.infraCard}>
+                <span className={styles.infraIcon}>🕸️</span>
+                <h3>Shade Nets</h3>
+                <p>Optimum light regulation for leafy greens and vegetables.</p>
+              </Link>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.4}>
+              <Link href="/infrastructure#drip-irrigation" className={styles.infraCard}>
+                <span className={styles.infraIcon}>💧</span>
+                <h3>Drip Irrigation</h3>
+                <p>Water-efficient systems that deliver nutrients directly to roots.</p>
+              </Link>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      <InstagramFeed />
+      <ScrollReveal direction="up">
+        <InstagramFeed />
+      </ScrollReveal>
     </main>
   );
 }

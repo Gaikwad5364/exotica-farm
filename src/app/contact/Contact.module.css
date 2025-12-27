@@ -1,6 +1,6 @@
 .pageContainer {
     min-height: 100vh;
-    padding: 40px 20px 80px;
+    padding: 20px 20px 80px;
     background: var(--color-earth-100);
 }
 
@@ -9,7 +9,7 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    gap: 60px;
+    gap: 50px;
 }
 
 @media (max-width: 900px) {
@@ -21,20 +21,20 @@
 
 .title {
     font-size: clamp(2.2rem, 4vw, 3.5rem);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     color: var(--color-primary-dark);
 }
 
 .subtitle {
     font-size: 1.1rem;
     color: var(--color-text-muted);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .contactInfo {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
 }
 
 .infoBlock h3 {
@@ -74,7 +74,7 @@
 /* Simple Form Styles */
 .formCard {
     background: white;
-    padding: 35px;
+    padding: 28px;
     border-radius: 20px;
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -89,7 +89,7 @@
 .contactForm {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 
 .inputGroup {

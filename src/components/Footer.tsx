@@ -30,7 +30,7 @@ export default function Footer() {
                         <h3>Contact Info</h3>
                         <ul className={styles.linkList}>
                             <li>📍 123 Green Valley, Agri Dist.</li>
-                            <li>📞 +91 98765 43210</li>
+                            <li>📞 +91 77210 75329</li>
                             <li>✉️ hello@exoticafarm.com</li>
                         </ul>
                     </div>

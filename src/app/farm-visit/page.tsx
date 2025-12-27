@@ -9,6 +9,7 @@ import { submitFarmVisitAction } from '../actions';
 import Select from '@/components/ui/Select';
 import DatePicker from '@/components/ui/DatePicker';
 import PhoneInput from '@/components/ui/PhoneInput';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export default function FarmVisitPage() {
     const [submitted, setSubmitted] = useState(false);
@@ -73,22 +74,26 @@ export default function FarmVisitPage() {
     return (
         <main className={styles.pageContainer}>
             <section className={styles.hero}>
-                <motion.h1
-                    className={styles.title}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                >
-                    Plan Your Visit
-                </motion.h1>
-                <motion.p
-                    className={styles.subtitle}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                >
-                    Step into the world of precision agriculture. We welcome students, professionals,
-                    and families to witness our sustainable farming revolution first-hand.
-                </motion.p>
+                <ScrollReveal direction="up">
+                    <motion.h1
+                        className={styles.title}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                    >
+                        Plan Your Visit
+                    </motion.h1>
+                </ScrollReveal>
+                <ScrollReveal direction="up" delay={0.1}>
+                    <motion.p
+                        className={styles.subtitle}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        Step into the world of precision agriculture. We welcome students, professionals,
+                        and families to witness our sustainable farming revolution first-hand.
+                    </motion.p>
+                </ScrollReveal>
             </section>
 
             <section className="container">
@@ -98,18 +103,20 @@ export default function FarmVisitPage() {
                         { icon: <ShieldCheck />, title: "Guided Tours", desc: "Expert agronomists leading you through every stage of growth." },
                         { icon: <Target />, title: "Education Hub", desc: "Technical workshops for students and commercial growers." }
                     ].map((item, i) => (
-                        <motion.div
-                            key={i}
-                            className={styles.expCard}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                        >
-                            <span className={styles.iconWrapper}>{item.icon}</span>
-                            <h3>{item.title}</h3>
-                            <p className="text-muted">{item.desc}</p>
-                        </motion.div>
+                        <ScrollReveal key={i} direction="up" delay={0.1 * i}>
+                            <motion.div
+                                key={i}
+                                className={styles.expCard}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                            >
+                                <span className={styles.iconWrapper}>{item.icon}</span>
+                                <h3>{item.title}</h3>
+                                <p className="text-muted">{item.desc}</p>
+                            </motion.div>
+                        </ScrollReveal>
                     ))}
                 </div>
 

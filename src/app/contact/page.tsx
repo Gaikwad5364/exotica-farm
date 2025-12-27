@@ -6,6 +6,7 @@ import { Mail, Phone, MapPin, MessageCircle, Send, CheckCircle } from 'lucide-re
 import styles from './Contact.module.css';
 import { submitContactAction } from '../actions';
 import PhoneInput from '@/components/ui/PhoneInput';
+import ScrollReveal from '@/components/ScrollReveal';
 
 export default function ContactUsPage() {
     const [submitted, setSubmitted] = useState(false);
@@ -47,63 +48,75 @@ export default function ContactUsPage() {
         <main className={styles.pageContainer}>
             <div className={styles.contentWrapper}>
                 <section className={styles.introSection}>
-                    <motion.h1
-                        className={styles.title}
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                    >
-                        Get in Touch
-                    </motion.h1>
-                    <motion.p
-                        className={styles.subtitle}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        Have a quick question or need support? Drop us a message and our team will get back to you shortly.
-                    </motion.p>
+                    <ScrollReveal direction="left">
+                        <motion.h1
+                            className={styles.title}
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                        >
+                            Get in Touch
+                        </motion.h1>
+                    </ScrollReveal>
+                    <ScrollReveal direction="left" delay={0.1}>
+                        <motion.p
+                            className={styles.subtitle}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            Have a quick question or need support? Drop us a message and our team will get back to you shortly.
+                        </motion.p>
+                    </ScrollReveal>
 
                     <div className={styles.contactInfo}>
-                        <motion.div
-                            className={styles.infoBlock}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                        >
-                            <h3><Phone size={24} /> Call Us</h3>
-                            <p>+91 98765 43210</p>
-                        </motion.div>
+                        <ScrollReveal direction="up" delay={0.2}>
+                            <motion.div
+                                className={styles.infoBlock}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                            >
+                                <h3><Phone size={24} /> Call Us</h3>
+                                <p>+91 77210 75329</p>
+                            </motion.div>
+                        </ScrollReveal>
 
-                        <motion.div
-                            className={styles.infoBlock}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                        >
-                            <h3><Mail size={24} /> Email Us</h3>
-                            <p>hello@exoticafarm.com</p>
-                        </motion.div>
+                        <ScrollReveal direction="up" delay={0.3}>
+                            <motion.div
+                                className={styles.infoBlock}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                            >
+                                <h3><Mail size={24} /> Email Us</h3>
+                                <p>hello@exoticafarm.com</p>
+                            </motion.div>
+                        </ScrollReveal>
 
-                        <motion.div
-                            className={styles.infoBlock}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                        >
-                            <h3><MapPin size={24} /> Visit Office</h3>
-                            <p>123 Green Valley, Agri District, State - 412345</p>
-                        </motion.div>
+                        <ScrollReveal direction="up" delay={0.4}>
+                            <motion.div
+                                className={styles.infoBlock}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                <h3><MapPin size={24} /> Visit Office</h3>
+                                <p>123 Green Valley, Agri District, State - 412345</p>
+                            </motion.div>
+                        </ScrollReveal>
 
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.6 }}
-                        >
-                            <a href="https://wa.me/919876543210" className={styles.whatsappLink} target="_blank" rel="noopener noreferrer">
-                                <MessageCircle size={20} />
-                                Chat on WhatsApp
-                            </a>
-                        </motion.div>
+                        <ScrollReveal direction="up" delay={0.5}>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.6 }}
+                            >
+                                <a href="https://wa.me/917721075329" className={styles.whatsappLink} target="_blank" rel="noopener noreferrer">
+                                    <MessageCircle size={20} />
+                                    Chat on WhatsApp
+                                </a>
+                            </motion.div>
+                        </ScrollReveal>
                     </div>
                 </section>
 
