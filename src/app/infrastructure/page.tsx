@@ -60,11 +60,11 @@ export default function InfrastructurePage() {
                     <div className={`${styles.row} ${styles.rowReverse}`}>
                         <div className={styles.content}>
                             <ScrollReveal direction="right">
-                                <h2>Shednet Houses</h2>
+                                <h2>Shade Net Houses</h2>
                             </ScrollReveal>
                             <ScrollReveal direction="right" delay={0.1}>
                                 <p>
-                                    Ideal for crops that require partial sunlight and ventilation. Our shednet
+                                    Ideal for crops that require partial sunlight and ventilation. Our shade net
                                     structures use high-quality shade nets to filter UV rays and reduce heat.
                                 </p>
                             </ScrollReveal>

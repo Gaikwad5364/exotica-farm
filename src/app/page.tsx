@@ -81,17 +81,38 @@ export default function Home() {
       {/* CTA Section */}
       <section className={styles.ctaSection}>
         <div className="container">
-          <ScrollReveal direction="up">
-            <h2>Experience Farm Life</h2>
-          </ScrollReveal>
-          <ScrollReveal direction="up" delay={0.1}>
-            <p>Want to see how your food is grown? Book a visit to our farm today.</p>
-          </ScrollReveal>
-          <ScrollReveal direction="up" delay={0.2}>
-            <Link href="/farm-visit" className={styles.ctaButton}>
-              Schedule a Visit
-            </Link>
-          </ScrollReveal>
+          <div className={styles.ctaContent}>
+            <div className={styles.ctaText}>
+              <ScrollReveal direction="left">
+                <h2>Experience Farm Life Firsthand</h2>
+                <p>
+                  Discover the secrets of sustainable farming. Walk through our lush polyhouses,
+                  learn about modern agriculture, and see how your food is grown with care.
+                </p>
+                <div className={styles.ctaActions}>
+                  <Link href="/farm-visit" className={styles.ctaButton_premium}>
+                    Schedule a Farm Visit
+                    <span className={styles.arrowIcon}>→</span>
+                  </Link>
+                </div>
+              </ScrollReveal>
+            </div>
+            <div className={styles.ctaImage}>
+              <ScrollReveal direction="right">
+                <div className={styles.ctaImageWrapper}>
+                  <img
+                    src="/images/farm-visit-experience.png"
+                    alt="Visitors at Exotica Farm"
+                    className={styles.ctaImg}
+                  />
+                  <div className={styles.ctaBadge}>
+                    <span className={styles.badgeIcon}>📍</span>
+                    <span>Guided Tours Available</span>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -112,6 +133,48 @@ export default function Home() {
                 <ProductCard product={product} />
               </ScrollReveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials CTA Section */}
+      <section className={styles.testimonialsSection}>
+        <div className="container">
+          <div className={styles.testimonialsCTA}>
+            <div className={styles.testimonialsImageContainer}>
+              <div className={styles.imageWrapper_testimonial}>
+                <img
+                  src="/images/satisfied-customers.png"
+                  alt="Our Happy Customers"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    display: 'block'
+                  }}
+                  className={styles.roundImage}
+                />
+                <div className={styles.imageOverlay}>
+                  <span className={styles.ratingBadge}>★★★★★</span>
+                </div>
+              </div>
+            </div>
+            <div className={styles.testimonialsTextContainer}>
+              <ScrollReveal direction="right">
+                <span className={styles.accentText}>Consumer Trust</span>
+                <h2 className={styles.testimonialTitle}>See Why Our Customers Love Us</h2>
+                <p className={styles.testimonialLead}>
+                  "The quality of vegetables from Exotica Farm is unmatched.
+                  Fresh, crunchy, and you can really taste the difference of protected farming."
+                </p>
+                <div className={styles.testimonialActions}>
+                  <Link href="/testimonials" className={styles.testimonialButton_premium}>
+                    Read All Testimonials
+                    <span className={styles.arrowIcon}>→</span>
+                  </Link>
+                </div>
+              </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>

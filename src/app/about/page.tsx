@@ -27,7 +27,7 @@ export default function AboutPage() {
                             </ScrollReveal>
                             <ScrollReveal direction="left" delay={0.1}>
                                 <p>
-                                    Founded in 2020, Exotica Farm started as a small experimental shednet
+                                    Founded in 2020, Exotica Farm started as a small experimental Shade net
                                     farm producing quality bell peppers. Witnessing the transformative power
                                     of protected farming, we expanded our operations to include state-of-the-art
                                     polyhouses and diversified into button mushrooms and cucumbers.

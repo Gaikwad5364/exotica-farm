@@ -132,7 +132,15 @@ export default function FarmVisitPage() {
                                 <div className={styles.infoIcon}><MapPin size={20} /></div>
                                 <div>
                                     <h4 style={{ color: 'var(--color-primary-dark)' }}>Location</h4>
-                                    <p style={{ fontSize: '0.9rem' }}>Exotica Farms, Agri-Hub, Sector 4</p>
+                                    <a
+                                        href="https://maps.app.goo.gl/YHm6X6iwEi5eMYPL8"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="premium-address-link"
+                                    >
+                                        Exotica Farms, Kavathe Mala Road,<br />
+                                        Nagar Highway, Kondhapuri, Pune 412209
+                                    </a>
                                 </div>
                             </div>
                             <div className={styles.infoItem}>
@@ -142,6 +150,31 @@ export default function FarmVisitPage() {
                                     <p style={{ fontSize: '0.9rem' }}>Mon - Sat: 10:00 AM to 4:00 PM</p>
                                 </div>
                             </div>
+
+                            {/* Custom Farm Location Card */}
+                            <motion.a
+                                href="https://maps.app.goo.gl/YHm6X6iwEi5eMYPL8"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.mapCard}
+                                whileHover={{ scale: 1.02 }}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                <div className={styles.mapEmbedContainer}>
+                                    <img
+                                        src="/images/Exotica Farms Location Image.png"
+                                        alt="Exotica Farm Location Map"
+                                        className={styles.mapStaticImg}
+                                    />
+                                    <div className={styles.mapOverlay}>
+                                        <div className={styles.visitUsBadge}>
+                                            <span>Visit Us →</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.a>
                         </div>
                     </div>
 

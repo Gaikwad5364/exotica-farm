@@ -115,12 +115,17 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                     Video Stories
                 </h2>
                 <div className={styles.videoGrid}>
-                    {VIDEO_REVIEWS.map((video) => (
+                    {VIDEO_REVIEWS.map((video, idx) => (
                         <motion.div
                             key={video.id}
                             className={styles.videoCard}
-                            whileHover={{ scale: 1.02 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: idx * 0.1 }}
+                            whileHover={{ y: -8, scale: 1.02 }}
                         >
+
                             <div className={styles.videoThumbnail}>
                                 <img src={video.thumbnail} alt={video.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 <div className={styles.playButton}>
@@ -147,13 +152,18 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                         <motion.div
                             key={t.id}
                             className={styles.reviewCard}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: idx * 0.1 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{
+                                duration: 0.5,
+                                delay: (idx % 3) * 0.1,
+                                ease: [0.4, 0, 0.2, 1]
+                            }}
+                            whileHover={{ y: -10 }}
                         >
                             {t.photo && (
-                                <img src={t.photo} alt={t.name} className={styles.reviewImage} />
+                                <img src={t.photo} alt={t.name} className={styles.reviewImage} loading="lazy" />
                             )}
                             <div className={styles.reviewContent}>
                                 <Quote className={styles.quoteIcon} size={40} />
@@ -176,8 +186,15 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
             </section>
 
             {/* Form Section */}
-            <section className="container">
+            <motion.section
+                className="container"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+            >
                 <div className={styles.formSection}>
+
                     <div className={styles.formInfo}>
                         <h2>Share Your Experience</h2>
                         <p className="text-muted" style={{ marginBottom: '30px' }}>
@@ -303,7 +320,8 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                         </AnimatePresence>
                     </div>
                 </div>
-            </section>
+            </motion.section>
         </main>
     );
 }
+

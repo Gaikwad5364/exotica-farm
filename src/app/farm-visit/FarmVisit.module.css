@@ -168,3 +168,89 @@
     justify-content: center;
     min-height: 400px;
 }
+
+/* Map Card Styles - Custom Static Production Version */
+.mapCard {
+    margin-top: 25px;
+    display: block;
+    text-decoration: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    border: 3px solid var(--color-primary-dark);
+    /* More prominent brand-green border */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 280px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    /* Natural subtle shadow */
+    position: relative;
+    cursor: pointer;
+}
+
+.mapEmbedContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f0f4f0;
+}
+
+.mapStaticImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mapOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.06);
+    /* Extremely light dimming (6%) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(1px);
+    /* Very minimal micro-blur to keep pin sharp */
+}
+
+.mapCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-primary);
+    /* Brighten border on hover */
+}
+
+.mapCard:hover .mapStaticImg {
+    transform: scale(1.05);
+    /* Subtle smooth zoom */
+}
+
+.mapCard:hover .mapOverlay {
+    opacity: 1;
+}
+
+.visitUsBadge {
+    background: var(--color-primary);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 16px rgba(46, 125, 50, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mapCard:hover .visitUsBadge {
+    transform: translateY(0);
+}

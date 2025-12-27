@@ -234,15 +234,15 @@
     box-shadow: var(--shadow-sm);
     border: 1px solid rgba(0, 0, 0, 0.05);
     position: relative;
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
 .reviewCard:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     border-color: var(--color-primary-light);
 }
 
@@ -251,7 +251,13 @@
     aspect-ratio: 16/10;
     object-fit: cover;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.reviewCard:hover .reviewImage {
+    transform: scale(1.05);
+}
+
 
 .reviewContent {
     padding: 24px;

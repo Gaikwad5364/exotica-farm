@@ -29,7 +29,16 @@ export default function Footer() {
                     <div className={styles.column}>
                         <h3>Contact Info</h3>
                         <ul className={styles.linkList}>
-                            <li>📍 123 Green Valley, Agri Dist.</li>
+                            <li>
+                                <a
+                                    href="https://maps.app.goo.gl/YHm6X6iwEi5eMYPL8"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="premium-address-link"
+                                >
+                                    📍 Exotica Farms, Kondhapuri, Pune
+                                </a>
+                            </li>
                             <li>📞 +91 77210 75329</li>
                             <li>✉️ hello@exoticafarm.com</li>
                         </ul>

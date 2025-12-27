@@ -169,3 +169,22 @@ select:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary-dark);
 }
+
+/* Global Address Link Utility */
+.premium-address-link {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+.premium-address-link:hover {
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.premium-address-link:active {
+  transform: translateY(0) scale(0.98);
+}

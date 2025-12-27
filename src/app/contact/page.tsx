@@ -101,7 +101,14 @@ export default function ContactUsPage() {
                                 transition={{ delay: 0.5 }}
                             >
                                 <h3><MapPin size={24} /> Visit Office</h3>
-                                <p>123 Green Valley, Agri District, State - 412345</p>
+                                <a
+                                    href="https://maps.app.goo.gl/YHm6X6iwEi5eMYPL8"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="premium-address-link"
+                                >
+                                    Exotica Farms, Kavathe Mala Road, Kondhapuri, Pune - 412209
+                                </a>
                             </motion.div>
                         </ScrollReveal>
 
