@@ -88,8 +88,11 @@ export async function submitFarmVisitAction(data: {
         revalidatePath('/admin/enquiries');
         revalidatePath('/admin/farm-visits');
         return { success: true };
-    } catch (e) {
+    } catch (e: any) {
         console.error("Farm visit submission error:", e);
-        return { success: false, error: "Failed to book visit" };
+        return {
+            success: false,
+            error: e instanceof Error ? e.message : "Failed to book visit. Please check if database is connected."
+        };
     }
 }
