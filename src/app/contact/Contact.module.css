@@ -1,0 +1,134 @@
+.pageContainer {
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    background: var(--color-earth-100);
+}
+
+.contentWrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+}
+
+@media (max-width: 900px) {
+    .contentWrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+.title {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    margin-bottom: 15px;
+    color: var(--color-primary-dark);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 30px;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.infoBlock h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-primary);
+}
+
+.infoBlock p {
+    font-size: 1.1rem;
+    color: var(--color-text-main);
+    line-height: 1.6;
+}
+
+.whatsappLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: #25D366;
+    color: white;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: all 0.3s;
+}
+
+.whatsappLink:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+/* Simple Form Styles */
+.formCard {
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 600px) {
+    .formCard {
+        padding: 24px;
+    }
+}
+
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.inputGroup label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--color-primary-dark);
+}
+
+.inputGroup input,
+.inputGroup textarea {
+    width: 100%;
+}
+
+.submitBtn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 5px;
+}
+
+.submitBtn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.15);
+}
+
+.successMsg {
+    text-align: center;
+    padding: 40px 0;
+}

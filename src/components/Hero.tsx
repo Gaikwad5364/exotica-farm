@@ -1,0 +1,161 @@
+"use client";
+
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import styles from './Hero.module.css';
+
+const SLIDES = [
+    {
+        type: 'video',
+        src: 'https://player.vimeo.com/external/434045526.sd.mp4?s=c27dc3699bc6246fef9842a1fc4b0460db060411&profile_id=165&oauth2_token_id=57447761',
+        duration: 10000
+    },
+    {
+        type: 'image',
+        src: '/images/hero-polyhouse.png',
+        duration: 5000
+    },
+    {
+        type: 'image',
+        src: '/images/mushroom.png',
+        duration: 5000
+    },
+    {
+        type: 'image',
+        src: '/images/bell-pepper.png',
+        duration: 5000
+    },
+    {
+        type: 'image',
+        src: '/images/cucumber.png',
+        duration: 5000
+    }
+];
+
+export default function Hero() {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [isManual, setIsManual] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    const nextSlide = () => {
+        setCurrentIndex((prev) => (prev + 1) % SLIDES.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentIndex((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+    };
+
+    const handleManualNext = () => {
+        setIsManual(true);
+        nextSlide();
+    };
+
+    const handleManualPrev = () => {
+        setIsManual(true);
+        prevSlide();
+    };
+
+    useEffect(() => {
+        setIsLoaded(true);
+    }, []);
+
+    useEffect(() => {
+        if (isManual) {
+            const timer = setTimeout(() => setIsManual(false), 10000); // Resume auto after 10s
+            return () => clearTimeout(timer);
+        }
+
+        const currentSlide = SLIDES[currentIndex];
+
+        if (currentSlide.type === 'image') {
+            const timer = setTimeout(nextSlide, currentSlide.duration);
+            return () => clearTimeout(timer);
+        }
+
+        if (currentSlide.type === 'video') {
+            const timer = setTimeout(nextSlide, 15000);
+            return () => clearTimeout(timer);
+        }
+    }, [currentIndex, isManual]);
+
+    if (!isLoaded) return <section className={styles.hero} style={{ background: '#001a00' }}></section>;
+
+    return (
+        <section className={styles.hero}>
+            <div className={styles.backgroundContainer}>
+                <AnimatePresence initial={false}>
+                    <motion.div
+                        key={currentIndex}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1.2 }}
+                        className={styles.slide}
+                    >
+                        {SLIDES[currentIndex].type === 'video' ? (
+                            <video
+                                ref={videoRef}
+                                src={SLIDES[currentIndex].src}
+                                autoPlay
+                                muted
+                                playsInline
+                                onEnded={nextSlide}
+                                className={styles.media}
+                            />
+                        ) : (
+                            <Image
+                                src={SLIDES[currentIndex].src}
+                                alt="Exotica Farm"
+                                fill
+                                priority
+                                className={styles.media}
+                                sizes="100vw"
+                            />
+                        )}
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+
+            <div className={styles.overlay}></div>
+
+            {/* Navigation Arrows */}
+            <button
+                className={`${styles.navButton} ${styles.prevButton}`}
+                onClick={handleManualPrev}
+                aria-label="Previous Slide"
+            >
+                <ChevronLeft size={32} strokeWidth={1.5} />
+            </button>
+            <button
+                className={`${styles.navButton} ${styles.nextButton}`}
+                onClick={handleManualNext}
+                aria-label="Next Slide"
+            >
+                <ChevronRight size={32} strokeWidth={1.5} />
+            </button>
+
+            <div className={styles.content}>
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                >
+                    <h1 className={styles.title}>
+                        Future of Sustainable <br /> Protected Farming
+                    </h1>
+                    <p className={styles.subtitle}>
+                        Premium quality Mushrooms, Bell Peppers, and Cucumbers <br />
+                        grown in state-of-the-art Polyhouses & Shednets.
+                    </p>
+                    <Link href="/products" className={styles.ctaButton}>
+                        Explore Our Produce
+                    </Link>
+                </motion.div>
+            </div>
+        </section>
+    );
+}
