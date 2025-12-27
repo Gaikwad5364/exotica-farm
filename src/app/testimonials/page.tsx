@@ -32,18 +32,32 @@ export const metadata = {
 };
 
 export default async function TestimonialsPage() {
-    // Seed if empty
-    const count = await prisma.testimonial.count();
-    if (count === 0) {
-        await prisma.testimonial.createMany({
-            data: INITIAL_TESTIMONIALS.map(t => ({ ...t, status: 'approved' }))
+    let testimonials = [];
+
+    try {
+        // Attempt to fetch from DB
+        const count = await prisma.testimonial.count();
+        if (count === 0) {
+            await prisma.testimonial.createMany({
+                data: INITIAL_TESTIMONIALS.map(t => ({ ...t, status: 'approved' }))
+            });
+        }
+
+        testimonials = await prisma.testimonial.findMany({
+            where: { status: 'approved' },
+            orderBy: { createdAt: 'desc' }
         });
+    } catch (error) {
+        console.error("Database connection error on testimonials page:", error);
+        // Fallback to initial data if DB fails
+        testimonials = INITIAL_TESTIMONIALS.map((t, i) => ({
+            ...t,
+            id: `fallback-${i}`,
+            status: 'approved',
+            createdAt: new Date(),
+            rejectionReason: null
+        }));
     }
 
-    const testimonials = await prisma.testimonial.findMany({
-        where: { status: 'approved' },
-        orderBy: { createdAt: 'desc' }
-    });
-
-    return <TestimonialsContent initialTestimonials={testimonials} />;
+    return <TestimonialsContent initialTestimonials={testimonials as any} />;
 }
