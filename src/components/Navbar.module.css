@@ -110,3 +110,42 @@
         height: 60px !important;
     }
 }
+
+.mobileMenu {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    z-index: 1001;
+    border-top: 1px solid #f0f0f0;
+}
+
+.mobileLink {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    display: block;
+    transition: color 0.2s;
+    font-family: var(--font-outfit);
+}
+
+.mobileLinkActive {
+    color: var(--color-primary) !important;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+}
