@@ -124,8 +124,8 @@ export default function TestimonialClient({ initialData }: { initialData: any[] 
                                         <div style={{ fontSize: '0.8rem', color: '#999' }}>{t.role}</div>
                                     </div>
                                 </td>
-                                <td style={{ ...tdStyle, maxWidth: '300px' }}>
-                                    <div style={{ fontSize: '0.9rem', lineHeight: '1.4', color: '#555' }}>
+                                <td style={{ ...tdStyle, minWidth: '400px' }}>
+                                    <div style={{ fontSize: '0.9rem', lineHeight: '1.5', color: '#444' }}>
                                         {t.photo && <ImageIcon size={14} style={{ marginRight: '5px', verticalAlign: 'middle' }} />}
                                         "{t.message}"
                                     </div>

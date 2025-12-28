@@ -87,7 +87,7 @@
 }
 
 .tableContainer table {
-    min-width: 900px;
+    min-width: 1100px;
     /* Ensure enough room for columns */
     width: 100%;
 }

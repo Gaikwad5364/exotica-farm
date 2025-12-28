@@ -165,7 +165,7 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
                         )}
                     </div>
                 </td>
-                <td style={{ ...tdStyle, maxWidth: '400px' }}>
+                <td style={{ ...tdStyle, minWidth: '350px', maxWidth: '600px' }}>
                     <div style={{ fontSize: '0.9rem', color: '#444', lineHeight: '1.6', marginBottom: '12px' }}>
                         {enquiry.message}
                     </div>
