@@ -160,6 +160,22 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 )}
             </AnimatePresence>
 
+            {/* Floating Trigger (visible when sidebar is closed on desktop) */}
+            <AnimatePresence>
+                {!isSidebarOpen && isMounted && (
+                    <motion.button
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: -20, opacity: 0 }}
+                        className={styles.floatingTrigger}
+                        onClick={() => setIsSidebarOpen(true)}
+                        title="Open Sidebar"
+                    >
+                        <ChevronRight size={20} />
+                    </motion.button>
+                )}
+            </AnimatePresence>
+
             {/* Main Content - Dynamic width behavior */}
             <main className={`${styles.mainContent} ${!isSidebarOpen ? styles.mainContentFull : ''}`}>
                 {children}
