@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Inter } from "next/font/google";
-import Navbar from "@/components/Navbar";
+import ConditionalNavbar from "@/components/ConditionalNavbar";
 import ConditionalFooter from "@/components/ConditionalFooter";
 import "./globals.css";
 
@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   description: "Experience modern agriculture with our polyhouse and shednet farming. Fresh mushrooms, bell peppers, and cucumbers directly from our farm.",
 };
 
+import MainContentWrapper from "@/components/MainContentWrapper";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,10 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
       <body className={inter.className}>
-        <Navbar />
-        <main className="main-content">
+        <ConditionalNavbar />
+        <MainContentWrapper>
           {children}
-        </main>
+        </MainContentWrapper>
         <ConditionalFooter />
       </body>
     </html>

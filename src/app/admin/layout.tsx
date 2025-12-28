@@ -19,8 +19,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
     const pathname = usePathname();
     const isLoginPage = pathname === "/admin/login";
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const handleLogout = async () => {
         await logoutAction();
@@ -53,12 +58,12 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
             {/* Sidebar */}
             <AnimatePresence>
-                {(typeof window !== 'undefined' && window.innerWidth > 1024) || isSidebarOpen ? (
+                {(isMounted && (window.innerWidth > 1024 || isSidebarOpen)) && (
                     <motion.aside
-                        initial={typeof window !== 'undefined' && window.innerWidth <= 1024 ? { x: '-100%' } : false}
+                        initial={window.innerWidth <= 1024 ? { x: '-100%' } : false}
                         animate={{ x: 0 }}
                         exit={{ x: '-100%' }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
                         className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}
                     >
                         <div style={{ padding: '24px', borderBottom: '1px solid #f5f5f5', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -82,8 +87,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                         href="/admin/dashboard"
                                         className={getNavClass(pathname === '/admin/dashboard')}
                                     >
-                                        <LayoutDashboard size={18} />
-                                        Dashboard
+                                        <LayoutDashboard size={18} /> Dashboard
                                         {pathname === '/admin/dashboard' && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                                     </Link>
                                 </li>
@@ -92,8 +96,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                         href="/admin/testimonials"
                                         className={getNavClass(pathname === '/admin/testimonials')}
                                     >
-                                        <MessageSquare size={18} />
-                                        Testimonials
+                                        <MessageSquare size={18} /> Testimonials
                                         {pathname === '/admin/testimonials' && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                                     </Link>
                                 </li>
@@ -102,8 +105,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                         href="/admin/farm-visits"
                                         className={getNavClass(pathname?.startsWith('/admin/farm-visits'))}
                                     >
-                                        <Calendar size={18} />
-                                        Farm Visits
+                                        <Calendar size={18} /> Farm Visits
                                         {pathname?.startsWith('/admin/farm-visits') && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                                     </Link>
                                 </li>
@@ -112,8 +114,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                         href="/admin/enquiries"
                                         className={getNavClass(pathname?.startsWith('/admin/enquiries'))}
                                     >
-                                        <Mail size={18} />
-                                        Enquiries
+                                        <Mail size={18} /> Enquiries
                                         {pathname?.startsWith('/admin/enquiries') && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                                     </Link>
                                 </li>
@@ -122,8 +123,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                             <div style={{ marginTop: '30px', padding: '0 8px' }}>
                                 <h4 style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#999', letterSpacing: '0.05em', marginBottom: '12px', paddingLeft: '8px' }}>Quick Links</h4>
                                 <Link href="/" target="_blank" className={getNavClass(false)} style={{ color: 'var(--color-primary)' }}>
-                                    <ExternalLink size={16} />
-                                    View Website
+                                    <ExternalLink size={16} /> View Website
                                 </Link>
                             </div>
                         </nav>
@@ -133,17 +133,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                 onClick={handleLogout}
                                 className="signOutBtn"
                             >
-                                <LogOut size={18} />
-                                Sign Out
+                                <LogOut size={18} /> Sign Out
                             </button>
                         </div>
                     </motion.aside>
-                ) : null}
+                )}
             </AnimatePresence>
 
             {/* Backdrop */}
             <AnimatePresence>
-                {isSidebarOpen && (
+                {isSidebarOpen && isMounted && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}

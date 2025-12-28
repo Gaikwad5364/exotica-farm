@@ -38,7 +38,6 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
   width: 100%;
 }
 
@@ -50,7 +49,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   font-size: 15px;
-  overflow-x: hidden;
   width: 100%;
   position: relative;
   /* Slightly more compact than default 16px */
@@ -110,8 +108,16 @@ button {
 .main-content {
   padding-top: var(--nav-height);
   min-height: calc(100vh - var(--nav-height));
-  overflow-x: hidden;
   width: 100%;
+  overflow-x: hidden;
+  /* Public pages still need this for animations */
+}
+
+/* Content wrapper that allows horizontal scrolling (for admin) */
+.admin-content {
+  padding-top: 0 !important;
+  min-height: 100vh !important;
+  overflow-x: visible !important;
 }
 
 .text-center {
