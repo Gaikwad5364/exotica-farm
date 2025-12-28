@@ -86,28 +86,38 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
 
     return (
         <>
-            <tr style={{ borderBottom: '1px solid #f5f5f5', opacity: loading ? 0.5 : 1 }}>
-                <td style={tdStyle} suppressHydrationWarning>{new Date(enquiry.createdAt).toLocaleDateString()}</td>
+            <tr style={{
+                borderBottom: '1px solid #f8f8f8',
+                opacity: loading ? 0.5 : 1,
+                transition: 'background 0.2s'
+            }}>
+                <td style={tdStyle} suppressHydrationWarning>
+                    <div style={{ fontWeight: 600, color: '#1a1a1a' }}>{new Date(enquiry.createdAt).toLocaleDateString()}</div>
+                    <div style={{ fontSize: '0.75rem', color: '#999' }}>{new Date(enquiry.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                </td>
                 <td style={tdStyle}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '8px',
-                            fontSize: '0.75rem',
-                            fontWeight: 700,
+                            fontSize: '0.7rem',
+                            fontWeight: 800,
+                            letterSpacing: '0.05em',
                             textTransform: 'uppercase',
-                            color: enquiry.type === 'farm_visit' ? '#3b82f6' : '#8b5cf6'
+                            color: enquiry.type === 'farm_visit' ? '#2563eb' : '#7c3aed'
                         }}>
-                            {enquiry.type === 'farm_visit' ? <Calendar size={14} /> : <Mail size={14} />}
+                            <div style={{ background: enquiry.type === 'farm_visit' ? '#eff6ff' : '#f5f3ff', padding: '4px', borderRadius: '6px' }}>
+                                {enquiry.type === 'farm_visit' ? <Calendar size={12} /> : <Mail size={12} />}
+                            </div>
                             {enquiry.type.replace('_', ' ')}
                         </div>
                         {isContacted && status === 'pending' ? (
                             <span style={{
-                                fontSize: '0.7rem',
+                                fontSize: '0.65rem',
                                 fontWeight: 700,
-                                padding: '2px 8px',
-                                borderRadius: '10px',
+                                padding: '4px 10px',
+                                borderRadius: '8px',
                                 background: '#eef2ff',
                                 color: '#4f46e5',
                                 textTransform: 'uppercase',
@@ -118,14 +128,15 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
                             </span>
                         ) : (
                             <span style={{
-                                fontSize: '0.7rem',
-                                fontWeight: 600,
-                                padding: '2px 8px',
-                                borderRadius: '10px',
+                                fontSize: '0.65rem',
+                                fontWeight: 700,
+                                padding: '4px 10px',
+                                borderRadius: '8px',
                                 width: 'fit-content',
                                 background: status === 'approved' ? '#f0fdf4' : status === 'rejected' ? '#fef2f2' : '#fffbeb',
                                 color: status === 'approved' ? '#16a34a' : status === 'rejected' ? '#dc2626' : '#d97706',
-                                textTransform: 'capitalize'
+                                textTransform: 'uppercase',
+                                border: `1px solid ${status === 'approved' ? '#dcfce7' : status === 'rejected' ? '#fee2e2' : '#fef3c7'}`
                             }}>
                                 {status}
                             </span>
@@ -133,33 +144,68 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
                     </div>
                 </td>
                 <td style={tdStyle}>
-                    <div>
-                        <div style={{ fontWeight: 600 }}>{enquiry.name}</div>
-                        <div style={{ fontSize: '0.85rem', color: '#666' }}>{enquiry.email}</div>
-                        {enquiry.phone && <div style={{ fontSize: '0.8rem', color: '#999' }}>{enquiry.phone}</div>}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ fontWeight: 700, color: '#1a1a1a', fontSize: '0.95rem' }}>{enquiry.name}</div>
+                        <div style={{ fontSize: '0.85rem', color: '#666', marginTop: '2px' }}>{enquiry.email}</div>
+                        {enquiry.phone && (
+                            <div style={{
+                                fontSize: '0.8rem',
+                                color: '#444',
+                                marginTop: '4px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                background: '#f8fafc',
+                                padding: '2px 8px',
+                                borderRadius: '6px',
+                                width: 'fit-content'
+                            }}>
+                                <MessageCircle size={12} /> {enquiry.phone}
+                            </div>
+                        )}
                     </div>
                 </td>
                 <td style={{ ...tdStyle, maxWidth: '400px' }}>
-                    <div style={{ fontSize: '0.9rem', color: '#555', marginBottom: '8px' }}>
+                    <div style={{ fontSize: '0.9rem', color: '#444', lineHeight: '1.6', marginBottom: '12px' }}>
                         {enquiry.message}
                     </div>
                     {enquiry.type === 'farm_visit' && (
                         <div style={{
                             fontSize: '0.75rem',
-                            background: '#f8fafc',
-                            padding: '8px 12px',
-                            borderRadius: '8px',
-                            border: '1px solid #e2e8f0',
+                            background: '#ffffff',
+                            padding: '12px',
+                            borderRadius: '12px',
+                            border: '1px solid #f1f5f9',
                             display: 'grid',
-                            gridTemplateColumns: '1fr 1fr',
-                            gap: '8px'
+                            gridTemplateColumns: 'repeat(2, 1fr)',
+                            gap: '10px',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.02)'
                         }}>
-                            <div><strong>Date:</strong> {metadata.date}</div>
-                            <div><strong>Time:</strong> {metadata.time}</div>
-                            <div><strong>Visitors:</strong> {metadata.visitors}</div>
-                            <div><strong>Purpose:</strong> {metadata.purpose}</div>
+                            <div>
+                                <span style={{ color: '#94a3b8', display: 'block', textTransform: 'uppercase', fontSize: '0.65rem', fontWeight: 700 }}>Requested Date</span>
+                                <span style={{ fontWeight: 600 }}>{metadata.date}</span>
+                            </div>
+                            <div>
+                                <span style={{ color: '#94a3b8', display: 'block', textTransform: 'uppercase', fontSize: '0.65rem', fontWeight: 700 }}>Time Slot</span>
+                                <span style={{ fontWeight: 600 }}>{metadata.time}</span>
+                            </div>
+                            <div>
+                                <span style={{ color: '#94a3b8', display: 'block', textTransform: 'uppercase', fontSize: '0.65rem', fontWeight: 700 }}>Visitors</span>
+                                <span style={{ fontWeight: 600 }}>{metadata.visitors} people</span>
+                            </div>
+                            <div>
+                                <span style={{ color: '#94a3b8', display: 'block', textTransform: 'uppercase', fontSize: '0.65rem', fontWeight: 700 }}>Purpose</span>
+                                <span style={{ fontWeight: 600 }}>{metadata.purpose}</span>
+                            </div>
                             {status === 'rejected' && enquiry.rejectionReason && (
-                                <div style={{ gridColumn: '1 / -1', color: '#dc2626', borderTop: '1px solid #fee2e2', paddingTop: '4px', marginTop: '4px' }}>
+                                <div style={{
+                                    gridColumn: '1 / -1',
+                                    color: '#dc2626',
+                                    borderTop: '1px solid #fee2e2',
+                                    paddingTop: '8px',
+                                    marginTop: '4px',
+                                    fontSize: '0.8rem'
+                                }}>
                                     <strong>Rejection Note:</strong> {enquiry.rejectionReason}
                                 </div>
                             )}
@@ -168,10 +214,9 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
                 </td>
                 <td style={{ ...tdStyle, textAlign: 'center' }}>
                     <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-                        {/* Actions remain ALWAYS visible now */}
                         <button
                             onClick={() => setShowReplyModal(true)}
-                            style={{ ...actionBtnStyle, background: '#eef2ff', color: '#4f46e5' }}
+                            style={{ ...actionBtnStyle, background: '#f1f5f9', color: '#475569' }}
                             title="Reply via Email"
                         >
                             <Mail size={16} />
@@ -180,20 +225,19 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
                         {enquiry.phone && (
                             <button
                                 onClick={handleWhatsApp}
-                                style={{ ...actionBtnStyle, background: '#f0fdf4', color: '#16a34a' }}
+                                style={{ ...actionBtnStyle, background: '#dcfce7', color: '#16a34a' }}
                                 title="Contact via WhatsApp"
                             >
                                 <MessageCircle size={16} />
                             </button>
                         )}
 
-                        {/* Approve/Reject logic: ONLY for pending Farm Visits */}
                         {enquiry.type === 'farm_visit' && status === 'pending' && (
                             <>
                                 <button
                                     onClick={() => setShowApproveConfirm(true)}
                                     disabled={loading}
-                                    style={{ ...actionBtnStyle, background: '#f0fdf4', color: '#16a34a' }}
+                                    style={{ ...actionBtnStyle, background: '#dcfce7', color: '#16a34a', border: '1px solid #bbf7d0' }}
                                     title="Approve Visit"
                                 >
                                     <Check size={18} />
@@ -201,7 +245,7 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
                                 <button
                                     onClick={() => setShowRejectModal(true)}
                                     disabled={loading}
-                                    style={{ ...actionBtnStyle, background: '#fef2f2', color: '#dc2626' }}
+                                    style={{ ...actionBtnStyle, background: '#fee2e2', color: '#dc2626', border: '1px solid #fecaca' }}
                                     title="Reject Visit"
                                 >
                                     <X size={18} />
@@ -216,7 +260,7 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
                             onClick={() => setShowDeleteConfirm(true)}
                             disabled={loading}
                             style={{ ...actionBtnStyle, background: '#fff1f2', color: '#e11d48', border: '1px solid #fecdd3' }}
-                            title="PERMANENT DELETE"
+                            title="DELETE RECORD"
                         >
                             <Trash2 size={16} />
                         </button>

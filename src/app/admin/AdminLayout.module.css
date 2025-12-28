@@ -1,119 +1,154 @@
 .adminContainer {
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
-    background: #f8f9fa;
+    background: #fdfdfb;
+    /* Slightly warmer professional background */
     position: relative;
-    overflow-x: visible;
+    overflow-x: hidden;
 }
 
+/* Base Desktop Sidebar */
 .sidebar {
-    width: 240px;
+    width: 280px;
     background: white;
-    border-right: 1px solid #eee;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
-    /* Changed from nav-height to 0 to manage its own header or use nav-height if needed */
+    left: 0;
     height: 100vh;
     z-index: 1100;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
 }
 
 .mainContent {
-    margin-left: 240px;
+    margin-left: 280px;
     flex-grow: 1;
-    padding: 30px 40px;
+    padding: 2rem 3rem;
     min-height: 100vh;
-    background: #f8f9fa;
-    width: calc(100% - 240px);
-    transition: margin-left 0.3s ease;
+    width: calc(100% - 280px);
 }
 
 .topBar {
     display: none;
-    height: 60px;
+    /* Desktop hidden */
+    height: 70px;
     background: white;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     align-items: center;
-    padding: 0 20px;
+    padding: 0 1.25rem;
     position: sticky;
     top: 0;
-    z-index: 1050;
-    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
 .sidebarToggle {
-    background: none;
-    border: none;
+    background: #f0fdf4;
+    border: 1px solid #dcfce7;
     color: var(--color-primary-dark);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 8px;
-    transition: background 0.2s;
+    padding: 10px;
+    border-radius: 12px;
+    transition: all 0.2s;
 }
 
 .sidebarToggle:hover {
-    background: #f0fdf4;
+    background: #dcfce7;
+    transform: scale(1.05);
 }
 
-.backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(2px);
-    z-index: 1090;
-    display: none;
+.mobileCloseBtn {
+    background: #f5f5f5 !important;
+    border: none !important;
+    color: #444 !important;
+    padding: 8px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Table Responsive Utility */
+.tableContainer {
+    width: 100%;
+    overflow-x: auto;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    margin-bottom: 2rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tableContainer table {
+    min-width: 900px;
+    /* Ensure enough room for columns */
+    width: 100%;
+}
+
+/* Mobile Overrides */
 @media (max-width: 1024px) {
     .sidebar {
-        transform: translateX(-100%);
-    }
-
-    .sidebarOpen {
-        transform: translateX(0);
+        /* Handled by Framer Motion transform, but we ensure it's hidden */
+        left: 0;
+        width: 300px;
+        box-shadow: 20px 0 50px rgba(0, 0, 0, 0.15);
     }
 
     .mainContent {
-        margin-left: 0;
-        width: 100%;
-        padding: 20px;
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 1.5rem 1.25rem;
     }
 
     .topBar {
         display: flex;
     }
-
-    .backdropVisible {
-        display: block;
-    }
 }
 
 @media (max-width: 600px) {
-    .mainContent {
-        padding: 15px;
+    .sidebar {
+        width: 85vw;
+        /* Almost full screen on very small devices */
     }
 }
 
-/* Global Table Wrapper Utility */
-.tableContainer {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 24px;
-    border: 1px solid #eee;
-    background: white;
-    margin-bottom: 2rem;
+/* Navigation Item Consistency */
+:global(.navItem) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    color: #555;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 4px;
 }
 
-.tableContainer table {
-    min-width: 800px;
-    /* Force scroll on small screens if needed */
+:global(.navItem:hover) {
+    background: #f8fafc;
+    color: var(--color-primary);
+}
+
+:global(.navItemActive) {
+    background: #f0fdf4 !important;
+    color: var(--color-primary-dark) !important;
+    font-weight: 600 !important;
+}
+
+/* Professional Stat Cards inside dashboard */
+:global(.admin-stat-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }

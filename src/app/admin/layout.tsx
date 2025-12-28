@@ -49,14 +49,39 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 <button
                     className={styles.sidebarToggle}
                     onClick={() => setIsSidebarOpen(true)}
+                    aria-label="Toggle Navigation"
                 >
-                    <Menu size={24} />
+                    <Menu size={22} />
                 </button>
-                <div style={{ marginLeft: '15px', fontWeight: 700, color: 'var(--color-primary-dark)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Leaf size={18} />
-                    <span>Admin Panel</span>
+                <div style={{ marginLeft: '12px', fontWeight: 700, color: 'var(--color-primary-dark)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ background: 'var(--color-primary)', color: 'white', padding: '6px', borderRadius: '8px', display: 'flex' }}>
+                        <Leaf size={16} />
+                    </div>
+                    <span style={{ fontSize: '1rem', letterSpacing: '-0.02em', fontWeight: 700 }}>Admin Panel</span>
                 </div>
             </header>
+
+            {/* Backdrop only on mobile */}
+            <AnimatePresence>
+                {isSidebarOpen && isMounted && window.innerWidth <= 1024 && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        style={{
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            background: 'rgba(0, 0, 0, 0.4)',
+                            backdropFilter: 'blur(4px)',
+                            zIndex: 1090
+                        }}
+                        onClick={() => setIsSidebarOpen(false)}
+                    />
+                )}
+            </AnimatePresence>
 
             {/* Sidebar */}
             <AnimatePresence>
@@ -66,102 +91,63 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                         animate={{ x: 0 }}
                         exit={{ x: '-100%' }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
-                        className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}
+                        className={styles.sidebar}
                     >
-                        <div style={{ padding: '24px', borderBottom: '1px solid #f5f5f5', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ padding: '24px', borderBottom: '1px solid #f8f8f8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--color-primary-dark)' }}>
-                                <Leaf size={22} />
-                                <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Exotica Admin</span>
+                                <div style={{ background: 'var(--color-primary)', color: 'white', padding: '8px', borderRadius: '10px', display: 'flex' }}>
+                                    <Leaf size={20} />
+                                </div>
+                                <span style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.03em' }}>Exotica</span>
                             </div>
                             <button
                                 className={styles.mobileCloseBtn}
                                 onClick={() => setIsSidebarOpen(false)}
-                                style={{ background: 'none', border: 'none', color: '#ccc', cursor: 'pointer' }}
                             >
-                                <X size={24} />
+                                <X size={20} />
                             </button>
                         </div>
 
-                        <nav style={{ padding: '16px', flexGrow: 1 }}>
+                        <nav style={{ padding: '20px 16px', flexGrow: 1, overflowY: 'auto' }}>
+                            <h4 style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#bbb', letterSpacing: '0.15em', marginBottom: '16px', paddingLeft: '8px', fontWeight: 700 }}>Management</h4>
                             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 <li>
-                                    <Link
-                                        href="/admin/dashboard"
-                                        className={getNavClass(pathname === '/admin/dashboard')}
-                                    >
+                                    <Link href="/admin/dashboard" className={getNavClass(pathname === '/admin/dashboard')}>
                                         <LayoutDashboard size={18} /> Dashboard
-                                        {pathname === '/admin/dashboard' && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        href="/admin/testimonials"
-                                        className={getNavClass(pathname === '/admin/testimonials')}
-                                    >
+                                    <Link href="/admin/testimonials" className={getNavClass(pathname === '/admin/testimonials')}>
                                         <MessageSquare size={18} /> Testimonials
-                                        {pathname === '/admin/testimonials' && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        href="/admin/farm-visits"
-                                        className={getNavClass(pathname?.startsWith('/admin/farm-visits'))}
-                                    >
+                                    <Link href="/admin/farm-visits" className={getNavClass(pathname?.startsWith('/admin/farm-visits'))}>
                                         <Calendar size={18} /> Farm Visits
-                                        {pathname?.startsWith('/admin/farm-visits') && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link
-                                        href="/admin/enquiries"
-                                        className={getNavClass(pathname?.startsWith('/admin/enquiries'))}
-                                    >
+                                    <Link href="/admin/enquiries" className={getNavClass(pathname?.startsWith('/admin/enquiries'))}>
                                         <Mail size={18} /> Enquiries
-                                        {pathname?.startsWith('/admin/enquiries') && <ChevronRight size={14} style={{ marginLeft: 'auto' }} />}
                                     </Link>
                                 </li>
                             </ul>
 
-                            <div style={{ marginTop: '30px', padding: '0 8px' }}>
-                                <h4 style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#999', letterSpacing: '0.05em', marginBottom: '12px', paddingLeft: '8px' }}>Quick Links</h4>
-                                <Link href="/" target="_blank" className={getNavClass(false)} style={{ color: 'var(--color-primary)' }}>
-                                    <ExternalLink size={16} /> View Website
+                            <div style={{ marginTop: '40px', padding: '0 8px' }}>
+                                <h4 style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#bbb', letterSpacing: '0.15em', marginBottom: '16px', fontWeight: 700 }}>Site Support</h4>
+                                <Link href="/" target="_blank" className="navItem" style={{ color: 'var(--color-primary)' }}>
+                                    <ExternalLink size={16} /> View Production Site
                                 </Link>
                             </div>
                         </nav>
 
-                        <div style={{ padding: '16px', borderTop: '1px solid #f5f5f5' }}>
-                            <button
-                                onClick={handleLogout}
-                                className="signOutBtn"
-                            >
-                                <LogOut size={18} /> Sign Out
+                        <div style={{ padding: '20px', borderTop: '1px solid #f8f8f8' }}>
+                            <button onClick={handleLogout} className="signOutBtn">
+                                <LogOut size={18} />
+                                <span>Log Out</span>
                             </button>
                         </div>
                     </motion.aside>
-                )}
-            </AnimatePresence>
-
-            {/* Backdrop */}
-            <AnimatePresence>
-                {isSidebarOpen && isMounted && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className={styles.backdropVisible}
-                        style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: 0,
-                            width: '100vw',
-                            height: '100vh',
-                            background: 'rgba(0, 0, 0, 0.4)',
-                            backdropFilter: 'blur(3px)',
-                            zIndex: 1090
-                        }}
-                        onClick={() => setIsSidebarOpen(false)}
-                    />
                 )}
             </AnimatePresence>
 
@@ -171,52 +157,24 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             </main>
 
             <style jsx>{`
-                .navItem {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    padding: 12px 16px;
-                    border-radius: 12px;
-                    color: #444;
-                    background: transparent;
-                    text-decoration: none;
-                    font-size: 0.95rem;
-                    font-weight: 500;
-                    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                    margin-bottom: 2px;
-                }
-                .navItem:hover {
-                    background: #f0fdf4;
-                    color: var(--color-primary);
-                }
-                .navItemActive {
-                    color: var(--color-primary-dark);
-                    background: #f0fdf4;
-                    font-weight: 600;
-                    box-shadow: inset 4px 0 0 var(--color-primary);
-                }
                 :global(.signOutBtn) {
                     width: 100%;
                     display: flex;
                     align-items: center;
-                    gap: 10px;
-                    padding: 12px;
-                    border-radius: 10px;
-                    color: #e53e3e;
-                    background: transparent;
-                    border: none;
+                    gap: 12px;
+                    padding: 0.8rem 1rem;
+                    border-radius: 12px;
+                    color: #dc2626;
+                    background: #fef2f2;
+                    border: 1px solid #fee2e2;
                     cursor: pointer;
                     font-size: 0.95rem;
                     font-weight: 600;
                     transition: all 0.2s;
                 }
                 :global(.signOutBtn:hover) {
-                    background: #fff5f5;
-                }
-                @media (max-width: 1024px) {
-                    :global(.mobileCloseBtn) {
-                        display: flex !important;
-                    }
+                    background: #fee2e2;
+                    transform: translateY(-1px);
                 }
             `}</style>
         </div>
@@ -224,3 +182,4 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 }
 
 const getNavClass = (isActive: boolean) => `navItem ${isActive ? 'navItemActive' : ''}`;
+

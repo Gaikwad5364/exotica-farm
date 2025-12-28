@@ -16,36 +16,38 @@ export default function StatCard({ title, value, icon, bgColor, href }: StatCard
     return (
         <Link href={href} style={{ textDecoration: 'none' }}>
             <motion.div
-                whileHover={{ y: -3, boxShadow: '0 6px 16px rgba(0,0,0,0.04)' }}
+                whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(0,0,0,0.06)' }}
+                whileTap={{ scale: 0.98 }}
                 style={{
                     background: 'white',
-                    padding: '20px',
-                    borderRadius: '16px',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
-                    border: '1px solid #eee',
+                    padding: '24px',
+                    borderRadius: '20px',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.02)',
+                    border: '1px solid rgba(0,0,0,0.04)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '16px',
+                    gap: '20px',
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     height: '100%'
                 }}
             >
                 <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '12px',
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '16px',
                     background: bgColor,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flexShrink: 0
+                    flexShrink: 0,
+                    boxShadow: `0 8px 20px ${bgColor}40`
                 }}>
                     {icon}
                 </div>
                 <div>
-                    <h4 style={{ fontSize: '0.8rem', color: '#666', marginBottom: '2px', fontWeight: 500 }}>{title}</h4>
-                    <p style={{ fontSize: '1.5rem', fontWeight: 700, color: '#1a1a1a', margin: 0 }}>{value}</p>
+                    <h4 style={{ fontSize: '0.85rem', color: '#888', marginBottom: '4px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.02em' }}>{title}</h4>
+                    <p style={{ fontSize: '1.8rem', fontWeight: 800, color: '#1a1a1a', margin: 0, letterSpacing: '-0.02em' }}>{value}</p>
                 </div>
             </motion.div>
         </Link>

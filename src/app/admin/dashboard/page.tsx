@@ -19,29 +19,25 @@ export default async function AdminDashboard() {
                 <p style={{ color: '#666' }}>Welcome back to the Exotica Farm management console.</p>
             </div>
 
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '24px'
-            }}>
+            <div className="admin-stat-grid">
                 <StatCard
                     title="Total Reviews"
                     value={totalTestimonials}
-                    icon={<MessageSquare color="#f59e0b" />}
+                    icon={<MessageSquare size={24} color="#f59e0b" />}
                     bgColor="#fffbeb"
                     href="/admin/testimonials"
                 />
                 <StatCard
-                    title="Total Farm Visits"
+                    title="Farm Visits"
                     value={totalFarmVisits}
-                    icon={<Calendar color="#3b82f6" />}
+                    icon={<Calendar size={24} color="#3b82f6" />}
                     bgColor="#eff6ff"
                     href="/admin/farm-visits"
                 />
                 <StatCard
-                    title="Contact Enquiries"
+                    title="Enquiries"
                     value={contactEnquiries}
-                    icon={<Mail color="#8b5cf6" />}
+                    icon={<Mail size={24} color="#8b5cf6" />}
                     bgColor="#f5f3ff"
                     href="/admin/enquiries"
                 />
