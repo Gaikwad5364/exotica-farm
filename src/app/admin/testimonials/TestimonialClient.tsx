@@ -15,6 +15,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Select from '@/components/ui/Select';
 import ConfirmModal from '@/components/ConfirmModal';
 
+import styles from '../AdminLayout.module.css';
+
 export default function TestimonialClient({ initialData }: { initialData: any[] }) {
     const [testimonials, setTestimonials] = useState(initialData);
     const [showAddForm, setShowAddForm] = useState(false);
@@ -100,7 +102,7 @@ export default function TestimonialClient({ initialData }: { initialData: any[] 
                 )}
             </AnimatePresence>
 
-            <div style={{ background: 'white', borderRadius: '24px', border: '1px solid #eee', overflow: 'hidden' }}>
+            <div className={styles.tableContainer}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ background: '#fafafa', borderBottom: '1px solid #eee' }}>
                         <tr>

@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import EnquiryRow from "../enquiries/EnquiryRow";
 import Link from "next/link";
+import styles from "../AdminLayout.module.css";
 
 export default async function AdminFarmVisits({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
     const params = await searchParams;
@@ -49,7 +50,7 @@ export default async function AdminFarmVisits({ searchParams }: { searchParams: 
                 <StatusTab label="Rejected" status="rejected" active={activeStatus === 'rejected'} count={getStatusCount('rejected')} />
             </div>
 
-            <div style={{ background: 'white', borderRadius: '24px', border: '1px solid #eee', overflow: 'hidden' }}>
+            <div className={styles.tableContainer}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
                     <thead style={{ background: '#fafafa', borderBottom: '1px solid #eee' }}>
                         <tr>
