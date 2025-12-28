@@ -20,35 +20,43 @@ import styles from "./AdminLayout.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isMounted, setIsMounted] = useState(false);
     const pathname = usePathname();
     const isLoginPage = pathname === "/admin/login";
 
     useEffect(() => {
         setIsMounted(true);
+        // On mobile, start with sidebar closed
+        if (window.innerWidth <= 1024) {
+            setIsSidebarOpen(false);
+        }
     }, []);
 
     const handleLogout = async () => {
         await logoutAction();
     };
 
-    // Close sidebar on path change
+    // Close sidebar on path change ONLY on mobile
     useEffect(() => {
-        setIsSidebarOpen(false);
+        if (window.innerWidth <= 1024) {
+            setIsSidebarOpen(false);
+        }
     }, [pathname]);
 
     if (isLoginPage) {
         return <>{children}</>;
     }
 
+    const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
     return (
         <div className={styles.adminContainer}>
-            {/* Mobile Top Bar */}
+            {/* Top Bar for both Mobile & Desktop */}
             <header className={styles.topBar}>
                 <button
                     className={styles.sidebarToggle}
-                    onClick={() => setIsSidebarOpen(true)}
+                    onClick={toggleSidebar}
                     aria-label="Toggle Navigation"
                 >
                     <Menu size={22} />
@@ -85,9 +93,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
             {/* Sidebar */}
             <AnimatePresence>
-                {(isMounted && (window.innerWidth > 1024 || isSidebarOpen)) && (
+                {(isMounted && isSidebarOpen) && (
                     <motion.aside
-                        initial={window.innerWidth <= 1024 ? { x: '-100%' } : false}
+                        initial={window.innerWidth <= 1024 ? { x: '-100%' } : { x: 0 }}
                         animate={{ x: 0 }}
                         exit={{ x: '-100%' }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
@@ -100,6 +108,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                 </div>
                                 <span style={{ fontWeight: 700, fontSize: '1.2rem', letterSpacing: '-0.03em' }}>Exotica</span>
                             </div>
+                            {/* Close button only visible on mobile or when toggled */}
                             <button
                                 className={styles.mobileCloseBtn}
                                 onClick={() => setIsSidebarOpen(false)}
@@ -151,10 +160,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 )}
             </AnimatePresence>
 
-            {/* Main Content */}
-            <main className={styles.mainContent}>
+            {/* Main Content - Dynamic width behavior */}
+            <main className={`${styles.mainContent} ${!isSidebarOpen ? styles.mainContentFull : ''}`}>
                 {children}
             </main>
+
 
             <style jsx>{`
                 :global(.signOutBtn) {

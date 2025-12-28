@@ -29,11 +29,17 @@
     padding: 2rem 3rem;
     min-height: 100vh;
     width: calc(100% - 280px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mainContentFull {
+    margin-left: 0;
+    width: 100%;
 }
 
 .topBar {
-    display: none;
-    /* Desktop hidden */
+    display: flex;
+    /* Visible on all devices now */
     height: 70px;
     background: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -72,6 +78,7 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 /* Table Responsive Utility */
