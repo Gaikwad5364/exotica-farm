@@ -2,6 +2,7 @@
     min-height: 100vh;
     padding: 60px 20px;
     background: var(--color-earth-100);
+    overflow-x: hidden;
 }
 
 .hero {

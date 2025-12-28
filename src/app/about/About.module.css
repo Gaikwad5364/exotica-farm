@@ -20,6 +20,7 @@
 
 .contentSection {
     padding: 80px 0;
+    overflow: hidden;
 }
 
 .grid {
@@ -58,6 +59,7 @@
 
 .valuesSection {
     padding: 40px 0 80px;
+    overflow: hidden;
 }
 
 .valueCard {

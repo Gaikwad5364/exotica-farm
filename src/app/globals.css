@@ -38,6 +38,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -48,6 +50,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   font-size: 15px;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
   /* Slightly more compact than default 16px */
 }
 
@@ -92,6 +97,12 @@ button {
   padding: 0 24px;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
 .section {
   padding: 60px 0;
 }
@@ -99,6 +110,8 @@ button {
 .main-content {
   padding-top: var(--nav-height);
   min-height: calc(100vh - var(--nav-height));
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .text-center {

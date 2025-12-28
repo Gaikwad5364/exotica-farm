@@ -75,13 +75,38 @@
     color: var(--color-text-main);
 }
 
+.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    height: 64px;
+}
+
 @media (max-width: 768px) {
     .navLinks {
         display: none;
-        /* Mobile menu implementation needed later */
     }
 
     .mobileMenuBtn {
         display: block;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    .logo img {
+        width: 80px !important;
+        height: 80px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo {
+        font-size: 1rem;
+    }
+
+    .logo img {
+        width: 60px !important;
+        height: 60px !important;
     }
 }

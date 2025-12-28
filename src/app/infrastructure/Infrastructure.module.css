@@ -21,6 +21,7 @@
 .section {
     padding: 80px 0;
     scroll-margin-top: calc(var(--nav-height) + 20px);
+    overflow: hidden;
 }
 
 .sectionAlternate {

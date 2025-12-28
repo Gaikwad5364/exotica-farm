@@ -21,6 +21,7 @@
 
 .aboutSection {
     background-color: white;
+    overflow: hidden;
 }
 
 .storyContent {
@@ -74,6 +75,7 @@
 
 .infraSection {
     background-color: var(--color-earth-200);
+    overflow: hidden;
 }
 
 .infraCard {
