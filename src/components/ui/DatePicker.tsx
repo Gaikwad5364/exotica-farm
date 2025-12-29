@@ -122,9 +122,9 @@ export default function DatePicker({ value, onChange, minDate, label }: DatePick
                         }}
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                            <button onClick={() => handleMonthChange(-1)} style={navBtnStyle}><ChevronLeft size={16} /></button>
+                            <button type="button" onClick={() => handleMonthChange(-1)} style={navBtnStyle}><ChevronLeft size={16} /></button>
                             <span style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--color-primary-dark)' }}>{monthYearStr}</span>
-                            <button onClick={() => handleMonthChange(1)} style={navBtnStyle}><ChevronRight size={16} /></button>
+                            <button type="button" onClick={() => handleMonthChange(1)} style={navBtnStyle}><ChevronRight size={16} /></button>
                         </div>
 
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px', textAlign: 'center' }}>
@@ -141,6 +141,7 @@ export default function DatePicker({ value, onChange, minDate, label }: DatePick
                                 return (
                                     <button
                                         key={day}
+                                        type="button"
                                         disabled={disabled}
                                         onClick={() => {
                                             onChange(formatDate(day));

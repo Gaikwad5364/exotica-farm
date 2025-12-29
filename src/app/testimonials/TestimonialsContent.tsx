@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Quote, Camera, Video, Play, Send, CheckCircle } from 'lucide-react';
+import { Star, Quote, Camera, Video, Play, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import styles from './Testimonials.module.css';
 import { submitTestimonialAction } from '../actions';
 
@@ -48,6 +48,7 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
     const [image, setImage] = useState<string | null>(null);
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const compressImage = (base64Str: string): Promise<string> => {
@@ -97,6 +98,7 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setError(null);
 
         try {
             const result = await submitTestimonialAction({
@@ -109,19 +111,11 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
 
             if (result.success) {
                 setSubmitted(true);
-                setTimeout(() => {
-                    setSubmitted(false);
-                    setName('');
-                    setRole('');
-                    setText('');
-                    setImage(null);
-                    setRating(5);
-                }, 3000);
             } else {
-                alert("Error: " + result.error);
+                setError(result.error || "Failed to submit review");
             }
         } catch (err) {
-            alert("An unexpected error occurred. Please try again.");
+            setError("An unexpected error occurred. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
@@ -275,6 +269,13 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                                     <CheckCircle size={80} className="text-primary" style={{ marginBottom: '20px', margin: '0 auto' }} />
                                     <h3 style={{ fontSize: '2rem', marginBottom: '10px' }}>Thank You!</h3>
                                     <p>Your review has been added and is pending approval.</p>
+                                    <button
+                                        className={styles.submitBtn}
+                                        style={{ marginTop: '30px', width: '100%' }}
+                                        onClick={() => setSubmitted(false)}
+                                    >
+                                        Back to Form
+                                    </button>
                                 </motion.div>
                             ) : (
                                 <motion.form
@@ -283,6 +284,19 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                 >
+                                    <AnimatePresence>
+                                        {error && (
+                                            <motion.div
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: 'auto' }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                                className={styles.errorMsg}
+                                            >
+                                                <AlertCircle size={18} />
+                                                <span>{error}</span>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                     <div className={styles.inputGroup}>
                                         <label>Full Name</label>
                                         <input

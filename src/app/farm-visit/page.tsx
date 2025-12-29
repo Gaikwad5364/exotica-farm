@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Clock, Users, Target, MessageSquare, Send, CheckCircle, MapPin, ShieldCheck, Leaf } from 'lucide-react';
+import { Calendar, Clock, Users, Target, MessageSquare, Send, CheckCircle, MapPin, ShieldCheck, Leaf, AlertCircle } from 'lucide-react';
 import styles from './FarmVisit.module.css';
 import { submitFarmVisitAction } from '../actions';
 
@@ -25,21 +25,39 @@ export default function FarmVisitPage() {
         message: ''
     });
 
+    const [error, setError] = useState<string | null>(null);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+        if (error) setError(null);
     };
 
     const handleCustomChange = (name: string, value: string) => {
         setFormData(prev => ({ ...prev, [name]: value }));
+        if (error) setError(null);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError(null);
 
         // Basic validation for custom selects
-        if (!formData.visitTime) return alert("Please select a time slot");
-        if (!formData.visitDate) return alert("Please select a visit date");
+        if (!formData.visitDate) {
+            setError("Please select a visit date");
+            return;
+        }
+        if (!formData.visitTime) {
+            setError("Please select a time slot");
+            return;
+        }
+
+        // Phone validation (Exactly 10 digits for India)
+        const phoneDigits = formData.phone.replace(/\D/g, '');
+        if (formData.phone.startsWith('+91') && phoneDigits.length !== 12) {
+            setError("Please enter exactly 10 digits");
+            return;
+        }
 
         setLoading(true);
 
@@ -50,20 +68,25 @@ export default function FarmVisitPage() {
             purpose: formData.purpose
         });
 
-        const result = await submitFarmVisitAction({
-            name: formData.fullName,
-            email: formData.email,
-            phone: formData.phone,
-            message: formData.message,
-            metadata
-        });
+        try {
+            const result = await submitFarmVisitAction({
+                name: formData.fullName,
+                email: formData.email,
+                phone: formData.phone,
+                message: formData.message,
+                metadata
+            });
 
-        if (result.success) {
-            setSubmitted(true);
-        } else {
-            alert(result.error || "Something went wrong. Please try again later.");
+            if (result.success) {
+                setSubmitted(true);
+            } else {
+                setError(result.error || "Something went wrong. Please try again later.");
+            }
+        } catch (err) {
+            setError("Failed to connect to the server. Please check your internet.");
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     // Get tomorrow's date for min date validation
@@ -204,6 +227,20 @@ export default function FarmVisitPage() {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                 >
+                                    <AnimatePresence>
+                                        {error && (
+                                            <motion.div
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: 'auto' }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                                className={styles.errorMessage}
+                                            >
+                                                <AlertCircle size={18} />
+                                                <span>{error}</span>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+
                                     <div className={styles.formGrid}>
                                         <div className={styles.inputGroup}>
                                             <label>Full Name</label>

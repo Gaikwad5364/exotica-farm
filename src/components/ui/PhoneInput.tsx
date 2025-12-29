@@ -87,7 +87,10 @@ export default function PhoneInput({ label, value, onChange, required = false }:
     };
 
     const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const input = e.target.value.replace(/\D/g, ''); // Only numbers
+        let input = e.target.value.replace(/\D/g, ''); // Only numbers
+        if (selectedCountry.dial === '+91') {
+            input = input.slice(0, 10);
+        }
         setLocalNumber(input);
         onChange(`${selectedCountry.dial}${input}`);
     };
@@ -225,6 +228,7 @@ export default function PhoneInput({ label, value, onChange, required = false }:
                     type="tel"
                     required={required}
                     placeholder="Enter phone number"
+                    maxLength={15}
                     value={localNumber}
                     onChange={handlePhoneChange}
                     style={{
