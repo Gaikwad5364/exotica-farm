@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, MessageCircle, Send, CheckCircle } from 'lucide-react';
 import styles from './Contact.module.css';
@@ -8,7 +9,8 @@ import { submitContactAction } from '../actions';
 import PhoneInput from '@/components/ui/PhoneInput';
 import ScrollReveal from '@/components/ScrollReveal';
 
-export default function ContactUsPage() {
+function ContactForm() {
+    const searchParams = useSearchParams();
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -17,6 +19,13 @@ export default function ContactUsPage() {
         phone: '',
         message: ''
     });
+
+    useEffect(() => {
+        const msg = searchParams.get('message');
+        if (msg) {
+            setFormData(prev => ({ ...prev, message: msg + '\n' }));
+        }
+    }, [searchParams]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -44,6 +53,89 @@ export default function ContactUsPage() {
         setLoading(false);
     };
 
+    return (
+        <section className={styles.formContainer}>
+            <AnimatePresence mode="wait">
+                {submitted ? (
+                    <motion.div
+                        className={styles.successMsg}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <CheckCircle size={80} className="text-primary" style={{ margin: '0 auto 20px', display: 'block' }} />
+                        <h2 style={{ fontSize: '2rem', marginBottom: '10px' }}>Message Sent!</h2>
+                        <p className="text-muted">Thanks for reaching out. We'll reply within 2-3 business hours.</p>
+                        <button
+                            className={styles.submitBtn}
+                            style={{ marginTop: '30px', width: '100%' }}
+                            onClick={() => setSubmitted(false)}
+                        >
+                            Send Another Message
+                        </button>
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        className={styles.formCard}
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <form className={styles.contactForm} onSubmit={handleSubmit}>
+                            <div className={styles.inputGroup}>
+                                <label>Full Name</label>
+                                <input
+                                    type="text"
+                                    name="fullName"
+                                    required
+                                    placeholder="Your Name"
+                                    value={formData.fullName}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>Email Address</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    required
+                                    placeholder="email@example.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <PhoneInput
+                                    label="Phone Number"
+                                    value={formData.phone}
+                                    onChange={(val) => handleCustomChange('phone', val)}
+                                    required
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>Your Message</label>
+                                <textarea
+                                    name="message"
+                                    rows={6}
+                                    required
+                                    placeholder="How can we help you?"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                ></textarea>
+                            </div>
+                            <button type="submit" className={styles.submitBtn} disabled={loading}>
+                                <Send size={18} style={{ marginRight: '10px' }} />
+                                {loading ? 'Sending...' : 'Send Enquiry'}
+                            </button>
+                        </form>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </section>
+    );
+}
+
+export default function ContactUsPage() {
     return (
         <main className={styles.pageContainer}>
             <div className={styles.contentWrapper}>
@@ -127,84 +219,9 @@ export default function ContactUsPage() {
                     </div>
                 </section>
 
-                <section className={styles.formContainer}>
-                    <AnimatePresence mode="wait">
-                        {submitted ? (
-                            <motion.div
-                                className={styles.successMsg}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0 }}
-                            >
-                                <CheckCircle size={80} className="text-primary" style={{ margin: '0 auto 20px', display: 'block' }} />
-                                <h2 style={{ fontSize: '2rem', marginBottom: '10px' }}>Message Sent!</h2>
-                                <p className="text-muted">Thanks for reaching out. We'll reply within 2-3 business hours.</p>
-                                <button
-                                    className={styles.submitBtn}
-                                    style={{ marginTop: '30px', width: '100%' }}
-                                    onClick={() => setSubmitted(false)}
-                                >
-                                    Send Another Message
-                                </button>
-                            </motion.div>
-                        ) : (
-                            <motion.div
-                                className={styles.formCard}
-                                initial={{ opacity: 0, x: 30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0 }}
-                            >
-                                <form className={styles.contactForm} onSubmit={handleSubmit}>
-                                    <div className={styles.inputGroup}>
-                                        <label>Full Name</label>
-                                        <input
-                                            type="text"
-                                            name="fullName"
-                                            required
-                                            placeholder="Your Name"
-                                            value={formData.fullName}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <label>Email Address</label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            required
-                                            placeholder="email@example.com"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <PhoneInput
-                                            label="Phone Number"
-                                            value={formData.phone}
-                                            onChange={(val) => handleCustomChange('phone', val)}
-                                            required
-                                        />
-                                    </div>
-                                    <div className={styles.inputGroup}>
-                                        <label>Your Message</label>
-                                        <textarea
-                                            name="message"
-                                            rows={6}
-                                            required
-                                            placeholder="How can we help you?"
-                                            value={formData.message}
-                                            onChange={handleChange}
-                                        ></textarea>
-                                    </div>
-                                    <button type="submit" className={styles.submitBtn}>
-                                        <Send size={18} style={{ marginRight: '10px' }} />
-                                        Send Enquiry
-                                    </button>
-                                </form>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </section>
+                <Suspense fallback={<div>Loading form...</div>}>
+                    <ContactForm />
+                </Suspense>
             </div>
         </main>
     );

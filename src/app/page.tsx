@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
 import InstagramFeed from "@/components/InstagramFeed";
 import Partners from "@/components/Partners";
+import PartnerSection from "@/components/PartnerSection";
 import ScrollReveal from "@/components/ScrollReveal";
 import styles from "./Home.module.css";
 
@@ -182,6 +183,8 @@ export default function Home() {
       <ScrollReveal direction="up">
         <Partners />
       </ScrollReveal>
+
+      <PartnerSection />
 
       {/* Infrastructure Highlights */}
       <section className={`${styles.infraSection} section`}>
