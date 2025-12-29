@@ -50,12 +50,45 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
     const [isSubmitting, setIsSubmitting] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const compressImage = (base64Str: string): Promise<string> => {
+        return new Promise((resolve) => {
+            const img = new window.Image();
+            img.src = base64Str;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 800;
+                const MAX_HEIGHT = 800;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/jpeg', 0.7)); // Compress to 70% quality
+            };
+        });
+    };
+
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             const reader = new FileReader();
-            reader.onloadend = () => {
-                setImage(reader.result as string);
+            reader.onloadend = async () => {
+                const base64 = reader.result as string;
+                const compressed = await compressImage(base64);
+                setImage(compressed);
             };
             reader.readAsDataURL(file);
         }
@@ -65,26 +98,33 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
         e.preventDefault();
         setIsSubmitting(true);
 
-        const result = await submitTestimonialAction({
-            name,
-            role,
-            rating,
-            text,
-            image: image || undefined
-        });
+        try {
+            const result = await submitTestimonialAction({
+                name,
+                role,
+                rating,
+                text,
+                image: image || undefined
+            });
 
-        if (result.success) {
-            setSubmitted(true);
-            setTimeout(() => {
-                setSubmitted(false);
-                setName('');
-                setRole('');
-                setText('');
-                setImage(null);
-                setRating(5);
-            }, 3000);
+            if (result.success) {
+                setSubmitted(true);
+                setTimeout(() => {
+                    setSubmitted(false);
+                    setName('');
+                    setRole('');
+                    setText('');
+                    setImage(null);
+                    setRating(5);
+                }, 3000);
+            } else {
+                alert("Error: " + result.error);
+            }
+        } catch (err) {
+            alert("An unexpected error occurred. Please try again.");
+        } finally {
+            setIsSubmitting(false);
         }
-        setIsSubmitting(false);
     };
 
     return (
@@ -196,27 +236,27 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                 <div className={styles.formSection}>
 
                     <div className={styles.formInfo}>
-                        <h2>Share Your Experience</h2>
-                        <p className="text-muted" style={{ marginBottom: '30px' }}>
-                            Your feedback helps us grow. Share your story with our community and let others know about your journey with Exotica Farms.
+                        <h2 style={{ fontSize: '1.75rem', marginBottom: '10px' }}>Share Your Experience</h2>
+                        <p className="text-muted" style={{ marginBottom: '20px' }}>
+                            Your feedback helps us grow. Share your story with our community.
                         </p>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                <div style={{ padding: '10px', background: 'rgba(46, 125, 50, 0.1)', borderRadius: '12px' }}>
-                                    <Camera size={24} className="text-primary" />
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ padding: '8px', background: 'rgba(46, 125, 50, 0.1)', borderRadius: '10px' }}>
+                                    <Camera size={20} className="text-primary" />
                                 </div>
                                 <div>
-                                    <h4 style={{ color: 'var(--color-primary-dark)' }}>Photo Upload</h4>
-                                    <p style={{ fontSize: '0.85rem' }}>Show off your recipes or farm visits.</p>
+                                    <h4 style={{ color: 'var(--color-primary-dark)', fontSize: '0.95rem' }}>Photo Upload</h4>
+                                    <p style={{ fontSize: '0.8rem' }}>Show off your recipes.</p>
                                 </div>
                             </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                <div style={{ padding: '10px', background: 'rgba(46, 125, 50, 0.1)', borderRadius: '12px' }}>
-                                    <Star size={24} className="text-primary" />
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ padding: '8px', background: 'rgba(46, 125, 50, 0.1)', borderRadius: '10px' }}>
+                                    <Star size={20} className="text-primary" />
                                 </div>
                                 <div>
-                                    <h4 style={{ color: 'var(--color-primary-dark)' }}>Verified Reviews</h4>
-                                    <p style={{ fontSize: '0.85rem' }}>Authentic feedback from our ecosystem.</p>
+                                    <h4 style={{ color: 'var(--color-primary-dark)', fontSize: '0.95rem' }}>Verified Reviews</h4>
+                                    <p style={{ fontSize: '0.8rem' }}>Authentic feedback.</p>
                                 </div>
                             </div>
                         </div>
@@ -281,7 +321,7 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                                     <div className={styles.inputGroup}>
                                         <label>Your Message</label>
                                         <textarea
-                                            rows={4}
+                                            rows={3}
                                             placeholder="How was your experience with our products?"
                                             required
                                             value={text}
