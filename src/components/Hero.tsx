@@ -148,7 +148,7 @@ export default function Hero() {
                     </h1>
                     <p className={styles.subtitle}>
                         Premium quality Mushrooms, Bell Peppers, and Cucumbers <br />
-                        grown in state-of-the-art Polyhouses & Shednets.
+                        grown in state-of-the-art Polyhouses & Shadenets.
                     </p>
                     <Link href="/products" className={styles.ctaButton}>
                         Explore Our Produce

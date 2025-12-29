@@ -54,7 +54,7 @@ export default function InfrastructurePage() {
                 </div>
             </section>
 
-            {/* Shednet */}
+            {/* Shade Net */}
             <section id="shadenets" className={`${styles.section} ${styles.sectionAlternate}`}>
                 <div className="container">
                     <div className={`${styles.row} ${styles.rowReverse}`}>
@@ -79,7 +79,7 @@ export default function InfrastructurePage() {
                             <div className={styles.imageWrapper}>
                                 <Image
                                     src="/images/bell-pepper.png"
-                                    alt="Shednet Farming"
+                                    alt="Shade Net Farming"
                                     fill
                                     style={{ objectFit: 'cover' }}
                                 />

@@ -18,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Exotica Farms | Premium Protected Farming",
-  description: "Experience modern agriculture with our polyhouse and shednet farming. Fresh mushrooms, bell peppers, and cucumbers directly from our farm.",
+  description: "Experience modern agriculture with our polyhouse and Shade Net farming. Fresh mushrooms, bell peppers, and cucumbers directly from our farm.",
 };
 
 import MainContentWrapper from "@/components/MainContentWrapper";

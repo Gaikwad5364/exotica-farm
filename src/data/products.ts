@@ -40,7 +40,7 @@ export const products = [
             plantationTime: 'February - March / September - October',
             growthPeriod: '35-45 days',
             harvestingTime: 'Daily for 3-4 months',
-            method: 'Polyhouse / Shednet',
+            method: 'Polyhouse / Shade Net',
             practices: 'Water-efficient Drip Irrigation'
         }
     }
