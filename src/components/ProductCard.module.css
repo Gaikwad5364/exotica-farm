@@ -57,40 +57,41 @@
 
 @media (max-width: 768px) {
     .card {
-        width: 100%;
-        margin-bottom: 0;
-        border: 1px solid rgba(46, 125, 50, 0.08);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        max-width: 400px;
+        margin: 0 auto;
     }
 
     .imageWrapper {
         height: auto;
-        aspect-ratio: 1/1;
-        max-height: 400px;
-        /* Prevent it from being TOO tall on very large phones */
+        aspect-ratio: 1.5/1;
+        max-height: 220px;
     }
 
     .content {
-        padding: 1.25rem;
+        padding: 0.75rem;
     }
 
     .title {
-        font-size: 1.1rem;
-        margin-bottom: 0.6rem;
+        font-size: 1rem;
+        margin-bottom: 0.35rem;
     }
 
     .description {
-        font-size: 0.9rem;
-        line-height: 1.6;
-        margin-bottom: 1.25rem;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
     .link {
-        padding: 0.5rem 0;
-        font-size: 0.95rem;
-        display: flex;
-        align-items: center;
-        width: fit-content;
+        padding: 0.25rem 0;
+        font-size: 0.85rem;
     }
 }
 

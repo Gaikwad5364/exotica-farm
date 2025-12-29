@@ -23,6 +23,13 @@ export default function Home() {
       description: 'Vibrant red and yellow capsicums rich in vitamins and flavor.',
       image: '/images/bell-pepper.png',
       slug: 'bell-pepper'
+    },
+    {
+      id: '3',
+      name: 'English Cucumber',
+      description: 'Crunchy and hydrating cucumbers harvested daily.',
+      image: '/images/cucumber.png',
+      slug: 'cucumber'
     }
   ];
 

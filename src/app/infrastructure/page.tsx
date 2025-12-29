@@ -78,7 +78,7 @@ export default function InfrastructurePage() {
                         <ScrollReveal direction="left" delay={0.2}>
                             <div className={styles.imageWrapper}>
                                 <Image
-                                    src="/images/bell-pepper.png"
+                                    src="/images/Shade-Net.png"
                                     alt="Shade Net Farming"
                                     fill
                                     style={{ objectFit: 'cover' }}

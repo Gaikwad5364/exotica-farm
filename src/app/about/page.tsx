@@ -76,9 +76,9 @@ const specialityCrops = [
 ];
 
 export default function AboutPage() {
-    const [activeMilestone, setActiveMilestone] = useState(timelineData[0]);
-    const activeIndex = timelineData.findIndex(m => m.id === activeMilestone.id);
-    const progressPercentage = (activeIndex / (timelineData.length - 1)) * 100;
+    const [activeMilestone, setActiveMilestone] = useState<any>(timelineData[0]);
+    const activeIndex = activeMilestone ? timelineData.findIndex(m => m.id === activeMilestone.id) : -1;
+    const progressPercentage = activeIndex >= 0 ? (activeIndex / (timelineData.length - 1)) * 100 : 0;
 
     return (
         <main className={styles.aboutContainer}>
@@ -190,38 +190,56 @@ export default function AboutPage() {
                             <div className={styles.timelineLine}></div>
                             <div
                                 className={styles.timelineProgress}
-                                style={{ width: `${progressPercentage}%` }}
+                                style={{ '--progress-percent': `${progressPercentage}%` } as any}
                             ></div>
                             {timelineData.map((milestone) => (
                                 <div
                                     key={milestone.id}
-                                    className={`${styles.timelinePoint} ${activeMilestone.id === milestone.id ? styles.active : ''}`}
-                                    onClick={() => setActiveMilestone(milestone)}
+                                    className={`${styles.timelinePoint} ${activeMilestone?.id === milestone.id ? styles.active : ''}`}
+                                    onClick={() => setActiveMilestone(activeMilestone?.id === milestone.id ? null : milestone)}
                                 >
-                                    <span className={styles.pointYear}>{milestone.year}</span>
                                     <div className={styles.pointCircle}></div>
-                                    <span className={styles.pointSize}>{milestone.size}</span>
+                                    <div className={styles.pointText}>
+                                        <span className={styles.pointYear}>{milestone.year}</span>
+                                        <span className={styles.pointSize}>{milestone.size}</span>
+                                        <AnimatePresence>
+                                            {activeMilestone?.id === milestone.id && (
+                                                <motion.div
+                                                    className={styles.mobileDescription}
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: 'auto' }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    transition={{ duration: 0.3 }}
+                                                >
+                                                    <h4>{milestone.achievement}</h4>
+                                                    <p>{milestone.description}</p>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
                                 </div>
                             ))}
                         </div>
 
                         <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeMilestone.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
-                                className={styles.milestoneDescription}
-                                style={{ '--active-point-pos': `${progressPercentage}%` } as any}
-                            >
-                                <div>
-                                    <h4 style={{ color: 'var(--color-primary)', marginBottom: '12px', fontSize: '1.4rem' }}>
-                                        {activeMilestone.achievement}
-                                    </h4>
-                                    <p>{activeMilestone.description}</p>
-                                </div>
-                            </motion.div>
+                            {activeMilestone && (
+                                <motion.div
+                                    key={activeMilestone.id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    transition={{ duration: 0.4, ease: "easeOut" }}
+                                    className={styles.milestoneDescription}
+                                    style={{ '--active-point-pos': `${progressPercentage}%` } as any}
+                                >
+                                    <div>
+                                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '12px', fontSize: '1.4rem' }}>
+                                            {activeMilestone.achievement}
+                                        </h4>
+                                        <p>{activeMilestone.description}</p>
+                                    </div>
+                                </motion.div>
+                            )}
                         </AnimatePresence>
                     </div>
                 </div>

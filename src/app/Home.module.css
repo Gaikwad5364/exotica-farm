@@ -472,8 +472,10 @@
     }
 
     .grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 1rem;
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        max-width: 480px;
+        margin: 0 auto;
     }
 
     .testimonialsSection {
