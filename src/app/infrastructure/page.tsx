@@ -124,6 +124,40 @@ export default function InfrastructurePage() {
                     </div>
                 </div>
             </section>
+            {/* Open Farming */}
+            <section id="open-farming" className={`${styles.section} ${styles.sectionAlternate}`}>
+                <div className="container">
+                    <div className={`${styles.row} ${styles.rowReverse}`}>
+                        <div className={styles.content}>
+                            <ScrollReveal direction="right">
+                                <h2>Open Farming</h2>
+                            </ScrollReveal>
+                            <ScrollReveal direction="right" delay={0.1}>
+                                <p>
+                                    While we specialize in protected cultivation, we also maintain open farming
+                                    areas for hardy, seasonal crops that thrive under direct sunlight.
+                                </p>
+                            </ScrollReveal>
+                            <ScrollReveal direction="right" delay={0.2}>
+                                <p>
+                                    Our open farming practices follow the same strict quality standards as our
+                                    protected structures, ensuring natural flavor and exceptional nutritional density.
+                                </p>
+                            </ScrollReveal>
+                        </div>
+                        <ScrollReveal direction="left" delay={0.2}>
+                            <div className={styles.imageWrapper}>
+                                <Image
+                                    src="/images/farm-visit-experience.png"
+                                    alt="Open Farming at Exotica Farms"
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                />
+                            </div>
+                        </ScrollReveal>
+                    </div>
+                </div>
+            </section>
         </main>
     );
 }

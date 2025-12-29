@@ -17,21 +17,6 @@ const SLIDES = [
         type: 'image',
         src: '/images/hero-polyhouse.png',
         duration: 5000
-    },
-    {
-        type: 'image',
-        src: '/images/mushroom.png',
-        duration: 5000
-    },
-    {
-        type: 'image',
-        src: '/images/bell-pepper.png',
-        duration: 5000
-    },
-    {
-        type: 'image',
-        src: '/images/cucumber.png',
-        duration: 5000
     }
 ];
 
@@ -39,7 +24,28 @@ export default function Hero() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isManual, setIsManual] = useState(false);
+    const [showScrollTop, setShowScrollTop] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
+
+    const scrollToSection = (id: string) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 300) {
+                setShowScrollTop(true);
+            } else {
+                setShowScrollTop(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const nextSlide = () => {
         setCurrentIndex((prev) => (prev + 1) % SLIDES.length);
@@ -102,7 +108,7 @@ export default function Hero() {
                         ) : (
                             <Image
                                 src={SLIDES[currentIndex].src}
-                                alt="Exotica Farm"
+                                alt="Exotica Farms"
                                 fill
                                 priority
                                 className={styles.media}
@@ -150,16 +156,41 @@ export default function Hero() {
                 </motion.div>
             </div>
 
-            <motion.div
-                className={styles.scrollIndicator}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
-            >
-                <div className={styles.mouse}>
-                    <div className={styles.wheel}></div>
-                </div>
-            </motion.div>
+            {/* Down Arrow Indicator */}
+            <AnimatePresence>
+                {!showScrollTop && (
+                    <motion.div
+                        className={styles.scrollDownIndicator}
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        onClick={() => scrollToSection('our-story')}
+                        aria-label="Scroll Down"
+                    >
+                        <div className={styles.arrowIcon}>
+                            <ChevronRight size={40} className={styles.rotatedArrow} />
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Back to Top Arrow */}
+            <AnimatePresence>
+                {showScrollTop && (
+                    <motion.div
+                        className={styles.scrollTopIndicator}
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.5 }}
+                        onClick={() => scrollToSection('hero')}
+                        aria-label="Back to Top"
+                    >
+                        <div className={styles.topArrowIcon}>
+                            <ChevronRight size={24} className={styles.rotatedUpArrow} />
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section>
     );
 }

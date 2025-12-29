@@ -22,7 +22,7 @@ const PartnerSection = () => {
         }
     ];
 
-    const partnerMessage = encodeURIComponent("We want to partner with Exotica Farm.");
+    const partnerMessage = encodeURIComponent("We want to partner with Exotica Farms.");
 
     return (
         <section className={styles.partnerSection}>

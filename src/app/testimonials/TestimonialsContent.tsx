@@ -27,7 +27,7 @@ const VIDEO_REVIEWS: VideoReview[] = [
     {
         id: 1,
         title: "Farm to Table Experience",
-        description: "Chef Marco visits Exotica Farm to see how his favorite mushrooms are grown.",
+        description: "Chef Marco visits Exotica Farms to see how his favorite mushrooms are grown.",
         thumbnail: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&q=80&w=800",
         videoUrl: "#"
     },
@@ -104,7 +104,7 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                    From home kitchens to Michelin-star restaurants, discover why people choose Exotica Farm.
+                    From home kitchens to Michelin-star restaurants, discover why people choose Exotica Farms.
                 </motion.p>
             </section>
 
@@ -198,7 +198,7 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                     <div className={styles.formInfo}>
                         <h2>Share Your Experience</h2>
                         <p className="text-muted" style={{ marginBottom: '30px' }}>
-                            Your feedback helps us grow. Share your story with our community and let others know about your journey with Exotica Farm.
+                            Your feedback helps us grow. Share your story with our community and let others know about your journey with Exotica Farms.
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>

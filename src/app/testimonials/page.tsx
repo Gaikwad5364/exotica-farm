@@ -27,7 +27,7 @@ const INITIAL_TESTIMONIALS = [
 ];
 
 export const metadata = {
-    title: 'Testimonials | Exotica Farm',
+    title: 'Testimonials | Exotica Farms',
     description: 'Discover why customers love our fresh produce and modern farming approach.',
 };
 

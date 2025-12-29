@@ -165,7 +165,7 @@ export default function FarmVisitPage() {
                                 <div className={styles.mapEmbedContainer}>
                                     <img
                                         src="/images/Exotica Farms Location Image.png"
-                                        alt="Exotica Farm Location Map"
+                                        alt="Exotica Farms Location Map"
                                         className={styles.mapStaticImg}
                                     />
                                     <div className={styles.mapOverlay}>

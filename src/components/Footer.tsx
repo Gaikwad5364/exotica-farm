@@ -7,7 +7,7 @@ export default function Footer() {
             <div className="container">
                 <div className={styles.grid}>
                     <div className={styles.column}>
-                        <h3>Exotica Farm</h3>
+                        <h3>Exotica Farms</h3>
                         <p>
                             Leading the way in protected farming with state-of-the-art polyhouses and
                             sustainable agricultural practices. delivering fresh produce directly from
@@ -52,7 +52,7 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.copyright}>
-                    <p>© {new Date().getFullYear()} Exotica Farm. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Exotica Farms. All rights reserved.</p>
                     <Link href="/admin/login" className={styles.adminLink}>Admin</Link>
                 </div>
             </div>

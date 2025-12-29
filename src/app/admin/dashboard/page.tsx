@@ -16,7 +16,7 @@ export default async function AdminDashboard() {
         <div>
             <div style={{ marginBottom: '40px' }}>
                 <h1 style={{ fontSize: '2rem', color: '#1a1a1a', marginBottom: '8px' }}>Dashboard Overview</h1>
-                <p style={{ color: '#666' }}>Welcome back to the Exotica Farm management console.</p>
+                <p style={{ color: '#666' }}>Welcome back to the Exotica Farms management console.</p>
             </div>
 
             <div className="admin-stat-grid">

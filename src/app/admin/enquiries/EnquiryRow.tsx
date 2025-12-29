@@ -59,7 +59,7 @@ export default function EnquiryRow({ enquiry }: { enquiry: any }) {
     const handleWhatsApp = () => {
         if (!enquiry.phone) return alert("No phone number available.");
         const cleanPhone = enquiry.phone.replace(/\D/g, '');
-        const message = `Hi ${enquiry.name}, this is regarding your enquiry at Exotica Farm...`;
+        const message = `Hi ${enquiry.name}, this is regarding your enquiry at Exotica Farms...`;
         const url = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
 

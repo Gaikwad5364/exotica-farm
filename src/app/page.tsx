@@ -23,22 +23,17 @@ export default function Home() {
       description: 'Vibrant red and yellow capsicums rich in vitamins and flavor.',
       image: '/images/bell-pepper.png',
       slug: 'bell-pepper'
-    },
-    {
-      id: '3',
-      name: 'English Cucumber',
-      description: 'Crunchy and hydrating cucumbers harvested daily.',
-      image: '/images/cucumber.png',
-      slug: 'cucumber'
     }
   ];
 
   return (
     <main>
-      <Hero />
+      <section id="hero">
+        <Hero />
+      </section>
 
       {/* Our Story Section */}
-      <section className={`${styles.aboutSection} section`}>
+      <section id="our-story" className={`${styles.aboutSection} section`}>
         <div className="container">
           <div className={styles.storyContent}>
             <div className={styles.storyText}>
@@ -47,7 +42,7 @@ export default function Home() {
               </ScrollReveal>
               <ScrollReveal direction="left" delay={0.1}>
                 <p>
-                  At Exotica Farm, we believe in the future of agriculture. By combining traditional
+                  At Exotica Farms, we believe in the future of agriculture. By combining traditional
                   farming wisdom with cutting-edge polyhouse technology, we create the perfect
                   environment for crops to thrive.
                 </p>
@@ -60,8 +55,9 @@ export default function Home() {
                 </p>
               </ScrollReveal>
               <ScrollReveal direction="left" delay={0.3}>
-                <Link href="/about" style={{ fontWeight: 600, color: 'var(--color-primary)', textDecoration: 'underline' }}>
-                  Read Our Full Story
+                <Link href="/about" className={styles.storyLink}>
+                  <span>Read Our Full Story</span>
+                  <i>→</i>
                 </Link>
               </ScrollReveal>
             </div>
@@ -103,7 +99,7 @@ export default function Home() {
                 <div className={styles.ctaImageWrapper}>
                   <img
                     src="/images/farm-visit-experience.png"
-                    alt="Visitors at Exotica Farm"
+                    alt="Visitors at Exotica Farms"
                     className={styles.ctaImg}
                   />
                   <div className={styles.ctaBadge}>
@@ -128,13 +124,23 @@ export default function Home() {
               Discover our premium range of vegetables and fungi, harvested at the peak of freshness.
             </p>
           </ScrollReveal>
-          <div className={styles.grid}>
+
+          <div className={products.length === 2 ? styles.productGrid2 : styles.grid}>
             {products.map((product, index) => (
               <ScrollReveal key={product.id} direction="up" delay={0.1 * (index + 2)}>
                 <ProductCard product={product} />
               </ScrollReveal>
             ))}
           </div>
+
+          <ScrollReveal direction="up" delay={0.4}>
+            <div className={styles.centerAction}>
+              <Link href="/products" className={styles.exploreButton}>
+                Explore Our Produce
+                <span className={styles.arrowIcon}>→</span>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -165,7 +171,7 @@ export default function Home() {
                 <span className={styles.accentText}>Consumer Trust</span>
                 <h2 className={styles.testimonialTitle}>See Why Our Customers Love Us</h2>
                 <p className={styles.testimonialLead}>
-                  "The quality of vegetables from Exotica Farm is unmatched.
+                  "The quality of vegetables from Exotica Farms is unmatched.
                   Fresh, crunchy, and you can really taste the difference of protected farming."
                 </p>
                 <div className={styles.testimonialActions}>
@@ -197,7 +203,7 @@ export default function Home() {
               Our farm utilizes advanced protective structures to ensure consistent quality year-round.
             </p>
           </ScrollReveal>
-          <div className={styles.grid}>
+          <div className={styles.infraGrid}>
             <ScrollReveal direction="up" delay={0.2}>
               <Link href="/infrastructure#polyhouses" className={styles.infraCard}>
                 <span className={styles.infraIcon}>🛖</span>
@@ -217,6 +223,13 @@ export default function Home() {
                 <span className={styles.infraIcon}>💧</span>
                 <h3>Drip Irrigation</h3>
                 <p>Water-efficient systems that deliver nutrients directly to roots.</p>
+              </Link>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.5}>
+              <Link href="/infrastructure#open-farming" className={styles.infraCard}>
+                <span className={styles.infraIcon}>🚜</span>
+                <h3>Open Farming</h3>
+                <p>Natural cultivation for seasonal crops in rich, open soil.</p>
               </Link>
             </ScrollReveal>
           </div>

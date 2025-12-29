@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 export async function sendAdminNotification(type: 'CONTACT' | 'FARM_VISIT', data: any) {
     try {
         const adminEmail = process.env.ADMIN_NOTIFY_EMAIL || process.env.ADMIN_EMAIL;
-        const subject = `New Exotica Farm ${type === 'FARM_VISIT' ? 'Farm Visit Request' : 'Enquiry'} - ${data.name}`;
+        const subject = `New Exotica Farms ${type === 'FARM_VISIT' ? 'Farm Visit Request' : 'Enquiry'} - ${data.name}`;
 
         let htmlContent = `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -48,7 +48,7 @@ export async function sendAdminNotification(type: 'CONTACT' | 'FARM_VISIT', data
         `;
 
         await transporter.sendMail({
-            from: `"Exotica Farm" <${process.env.SMTP_USER}>`,
+            from: `"Exotica Farms" <${process.env.SMTP_USER}>`,
             to: adminEmail,
             subject,
             html: htmlContent,
@@ -67,16 +67,16 @@ export async function sendUserVisitUpdate(type: 'RECEIVED' | 'APPROVED' | 'REJEC
     const meta = data.metadata ? JSON.parse(data.metadata) : {};
 
     if (type === 'RECEIVED') {
-        subject = "Farm Visit Request Received - Exotica Farm";
+        subject = "Farm Visit Request Received - Exotica Farms";
         title = "Request Received Successfully!";
-        message = "We have received your request to visit Exotica Farm. Our team is reviewing it, and we will get back to you shortly with an approval on this email and WhatsApp.";
+        message = "We have received your request to visit Exotica Farms. Our team is reviewing it, and we will get back to you shortly with an approval on this email and WhatsApp.";
     } else if (type === 'APPROVED') {
-        subject = "Farm Visit Request Approved! - Exotica Farm";
+        subject = "Farm Visit Request Approved! - Exotica Farms";
         title = "Your Request is Approved!";
-        message = `Good news! Your visit to Exotica Farm on ${meta.date} has been approved. We are looking forward to hosting you.`;
+        message = `Good news! Your visit to Exotica Farms on ${meta.date} has been approved. We are looking forward to hosting you.`;
         color = "#1565c0";
     } else if (type === 'REJECTED') {
-        subject = "Farm Visit Request Update - Exotica Farm";
+        subject = "Farm Visit Request Update - Exotica Farms";
         title = "Update on Your Request";
         message = `Thank you for your interest. Unfortunately, we cannot accommodate your visit at this time. <br><br><strong>Note from Admin:</strong> ${reason || 'No specific reason provided.'}`;
         color = "#c62828";
@@ -94,32 +94,32 @@ export async function sendUserVisitUpdate(type: 'RECEIVED' | 'APPROVED' | 'REJEC
                 <p>Time: ${meta.time || 'TBD'}</p>
                 <p>Visitors: ${meta.visitors || 'N/A'}</p>
             </div>
-            <p style="margin-top: 20px;">Regards,<br>Exotica Farm Team</p>
+            <p style="margin-top: 20px;">Regards,<br>Exotica Farms Team</p>
         </div>
     `;
 
     try {
         await transporter.sendMail({
-            from: `"Exotica Farm" <${process.env.SMTP_USER}>`,
+            from: `"Exotica Farms" <${process.env.SMTP_USER}>`,
             to: data.email,
             subject,
             html: htmlContent,
         });
 
         // Simulate WhatsApp Message
-        await sendWhatsAppMessage(data.phone, `${title}\n\n${message.replace(/<br>/g, '\n')}\n\n- Exotica Farm`);
+        await sendWhatsAppMessage(data.phone, `${title}\n\n${message.replace(/<br>/g, '\n')}\n\n- Exotica Farms`);
     } catch (e) {
         console.error("Failed to send user update email", e);
     }
 }
 
 export async function sendEnquiryAcknowledgement(data: any) {
-    const subject = "Your enquiry has been received – Exotica Farm";
+    const subject = "Your enquiry has been received – Exotica Farms";
     const htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
             <h2 style="color: #2e7d32;">Enquiry Received</h2>
             <p>Hello ${data.name},</p>
-            <p>Thank you for contacting Exotica Farm.</p>
+            <p>Thank you for contacting Exotica Farms.</p>
             <p>We have received your enquiry and our team will get back to you shortly.</p>
             <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
             <div style="font-size: 0.9rem; color: #666;">
@@ -128,20 +128,20 @@ export async function sendEnquiryAcknowledgement(data: any) {
                     ${data.message}
                 </div>
             </div>
-            <p style="margin-top: 20px;">Warm regards,<br>Exotica Farm Team</p>
+            <p style="margin-top: 20px;">Warm regards,<br>Exotica Farms Team</p>
         </div>
     `;
 
     try {
         await transporter.sendMail({
-            from: `"Exotica Farm" <${process.env.SMTP_USER}>`,
+            from: `"Exotica Farms" <${process.env.SMTP_USER}>`,
             to: data.email,
             subject,
             html: htmlContent,
         });
 
         // Simulate WhatsApp Message
-        await sendWhatsAppMessage(data.phone, `Hello ${data.name}, thank you for contacting Exotica Farm. We have received your enquiry and will get back to you soon.`);
+        await sendWhatsAppMessage(data.phone, `Hello ${data.name}, thank you for contacting Exotica Farms. We have received your enquiry and will get back to you soon.`);
     } catch (e) {
         console.error("Failed to send enquiry acknowledgement email", e);
     }
@@ -157,23 +157,23 @@ async function sendWhatsAppMessage(phone: string, text: string) {
 export async function sendDirectReply(email: string, name: string, subject: string, message: string) {
     const htmlContent = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-            <h2 style="color: #2e7d32;">Reply from Exotica Farm</h2>
+            <h2 style="color: #2e7d32;">Reply from Exotica Farms</h2>
             <p>Hi ${name},</p>
             <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; line-height: 1.6; color: #333;">
                 ${message.replace(/\n/g, '<br>')}
             </div>
             <p>If you have any further questions, feel free to reply to this email.</p>
-            <p style="margin-top: 30px;">Best Regards,<br><strong>The Exotica Farm Team</strong></p>
+            <p style="margin-top: 30px;">Best Regards,<br><strong>The Exotica Farms Team</strong></p>
             <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-            <p style="font-size: 11px; color: #999;">Exotica Farm - Sustainable Protected Farming</p>
+            <p style="font-size: 11px; color: #999;">Exotica Farms - Sustainable Protected Farming</p>
         </div>
     `;
 
     try {
         await transporter.sendMail({
-            from: `"Exotica Farm" <${process.env.SMTP_USER}>`,
+            from: `"Exotica Farms" <${process.env.SMTP_USER}>`,
             to: email,
-            subject: subject || "Re: Your Enquiry at Exotica Farm",
+            subject: subject || "Re: Your Enquiry at Exotica Farms",
             html: htmlContent,
         });
         return { success: true };
