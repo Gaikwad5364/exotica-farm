@@ -13,27 +13,33 @@ const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/exotica_farms_?igsh=MXM
 const instagramPosts = [
     {
         id: 1,
-        image: '/images/hero-polyhouse.png',
-        link: 'https://www.instagram.com/exotica_farms_/p/DSKNhwXk4800-tym9Cfv-_SemW_8EIJKmvqlU40/',
-        caption: 'Our new polyhouse structure'
+        image: '/images/insta-img-1.jpeg',
+        link: 'https://www.instagram.com/p/DKm_Hp_oFIk/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+        caption: 'Farm Life'
     },
     {
         id: 2,
-        image: '/images/mushroom.png',
-        link: 'https://www.instagram.com/exotica_farms_/p/DReFA4BjY5i-YmHm3epnrJNYbqsdG_Abz4BLf40/',
-        caption: 'Fresh harvest of button mushrooms'
+        image: '/images/insta-img-2.jpeg',
+        link: 'https://www.instagram.com/reel/DMz43EWNOuJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+        caption: 'Fresh Harvest'
     },
     {
         id: 3,
-        image: '/images/bell-pepper.png',
-        link: 'https://www.instagram.com/exotica_farms_/p/DReD00hE-qi9E4u-UmNuKPuevjFDRmGe021kM00/',
-        caption: 'Vibrant Capsicums'
+        image: '/images/insta-img-3.jpeg',
+        link: 'https://www.instagram.com/p/DP27qy3kx4K/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+        caption: 'Sustainable Farming'
     },
     {
         id: 4,
-        image: '/images/cucumber.png',
-        link: 'https://www.instagram.com/exotica_farms_/p/DP27qy3kx4KbWHNo97s-YUegiSYZXOLrWVh2OI0/',
-        caption: 'Crispy Cucumbers'
+        image: '/images/insta-img-4.jpeg',
+        link: 'https://www.instagram.com/p/DReFA4BjY5i/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+        caption: 'Our Produce'
+    },
+    {
+        id: 5,
+        image: '/images/insta-img-5.jpeg',
+        link: 'https://www.instagram.com/p/DSKNhwXk480/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+        caption: 'Greenhouse'
     },
 ];
 

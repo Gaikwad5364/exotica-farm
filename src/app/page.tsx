@@ -21,14 +21,14 @@ export default function Home() {
       id: '2',
       name: 'Bell Peppers',
       description: 'Vibrant red and yellow capsicums rich in vitamins and flavor.',
-      image: '/images/bell-pepper.png',
+      image: '/images/Yellow Bellpepper.jpeg',
       slug: 'bell-pepper'
     },
     {
       id: '3',
       name: 'English Cucumber',
       description: 'Crunchy and hydrating cucumbers harvested daily.',
-      image: '/images/cucumber.png',
+      image: '/images/cut-cucumber.jpeg',
       slug: 'cucumber'
     }
   ];
@@ -71,10 +71,10 @@ export default function Home() {
             <ScrollReveal direction="right" delay={0.2}>
               <div className={styles.imageGrid}>
                 <div className={styles.gridImage}>
-                  <Image src="/images/cucumber.png" alt="Farm Greenery" fill style={{ objectFit: 'cover' }} />
+                  <Image src="/images/cut-cucumber.jpeg" alt="Farm Greenery" fill style={{ objectFit: 'cover' }} />
                 </div>
                 <div className={styles.gridImage}>
-                  <Image src="/images/bell-pepper.png" alt="Fresh Harvest" fill style={{ objectFit: 'cover' }} />
+                  <Image src="/images/Red Bellpepper.jpeg" alt="Fresh Harvest" fill style={{ objectFit: 'cover' }} />
                 </div>
               </div>
             </ScrollReveal>
@@ -158,7 +158,7 @@ export default function Home() {
             <div className={styles.testimonialsImageContainer}>
               <div className={styles.imageWrapper_testimonial}>
                 <img
-                  src="/images/satisfied-customers.png"
+                  src="/images/Customer.jpeg"
                   alt="Our Happy Customers"
                   style={{
                     width: '100%',

@@ -335,7 +335,7 @@
     }
 
     .mobileDescription h4 {
-        font-size: 1.2rem;
+        font-size: 1.35rem;
         margin-bottom: 12px;
         color: var(--color-primary);
         font-weight: 700;
@@ -343,7 +343,7 @@
     }
 
     .mobileDescription p {
-        font-size: 1rem;
+        font-size: 1.1rem;
         color: var(--color-text-muted);
         line-height: 1.6;
         margin: 0;
@@ -352,7 +352,7 @@
 
 .pointYear {
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: var(--color-text-muted);
     position: absolute;
     top: -10px;
@@ -362,7 +362,7 @@
 @media (max-width: 768px) {
     .pointYear {
         position: static;
-        font-size: 1rem;
+        font-size: 1.15rem;
         margin-bottom: 2px;
     }
 }
@@ -372,7 +372,7 @@
 }
 
 .pointSize {
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--color-text-main);
     position: absolute;
@@ -384,7 +384,7 @@
     .pointSize {
         position: static;
         opacity: 0.6;
-        font-size: 0.8rem;
+        font-size: 0.95rem;
     }
 }
 

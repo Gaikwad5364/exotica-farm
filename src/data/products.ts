@@ -19,7 +19,7 @@ export const products = [
         name: 'Bell Peppers (Capsicum)',
         description: 'Vibrant red and yellow capsicums rich in vitamins and flavor.',
         longDescription: 'Our colored capsicums are known for their thick walls, crunchy texture, and sweet flavor. Grown in polyhouses, they are free from environmental pollutants.',
-        image: '/images/bell-pepper.png',
+        image: '/images/Yellow Bellpepper.jpeg',
         slug: 'bell-pepper',
         details: {
             plantationTime: 'August - September',
@@ -34,7 +34,7 @@ export const products = [
         name: 'English Cucumber',
         description: 'Crunchy and hydrating cucumbers harvested daily.',
         longDescription: 'Seedless, thin-skinned English cucumbers. Perfect for salads and healthy snacking. Grown vertically to ensure straight fruits and uniform green color.',
-        image: '/images/cucumber.png',
+        image: '/images/cut-cucumber.jpeg',
         slug: 'cucumber',
         details: {
             plantationTime: 'February - March / September - October',

@@ -66,7 +66,7 @@ const PartnerSection = () => {
                         <ScrollReveal direction="right" delay={0.2}>
                             <div className={styles.imageContainer}>
                                 <Image
-                                    src="/images/hero-polyhouse.png"
+                                    src="/images/become-partner-img.png"
                                     alt="Professional Farming Excellence"
                                     fill
                                     className={styles.partnerImg}

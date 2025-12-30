@@ -15,17 +15,12 @@ const SLIDES = [
     },
     {
         type: 'image',
-        src: '/images/hero-polyhouse.png',
-        duration: 5000
-    },
-    {
-        type: 'image',
         src: '/images/Shade-Net.png',
         duration: 5000
     },
     {
         type: 'image',
-        src: '/images/cucumber.png',
+        src: '/images/hero-polyhouse.png',
         duration: 5000
     }
 ];

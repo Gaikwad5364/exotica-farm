@@ -43,7 +43,7 @@ export default function InfrastructurePage() {
                         <ScrollReveal direction="right" delay={0.2}>
                             <div className={styles.imageWrapper}>
                                 <Image
-                                    src="/images/hero-polyhouse.png"
+                                    src="/images/polyhouse-image.webp"
                                     alt="Polyhouse Structure"
                                     fill
                                     style={{ objectFit: 'cover' }}
@@ -114,7 +114,7 @@ export default function InfrastructurePage() {
                         <ScrollReveal direction="right" delay={0.2}>
                             <div className={styles.imageWrapper}>
                                 <Image
-                                    src="/images/cucumber.png"
+                                    src="/images/Drip-irrigation-image.jpg"
                                     alt="Drip Irrigation"
                                     fill
                                     style={{ objectFit: 'cover' }}
@@ -148,7 +148,7 @@ export default function InfrastructurePage() {
                         <ScrollReveal direction="left" delay={0.2}>
                             <div className={styles.imageWrapper}>
                                 <Image
-                                    src="/images/farm-visit-experience.png"
+                                    src="/images/open-farm-img.jpeg"
                                     alt="Open Farming at Exotica Farms"
                                     fill
                                     style={{ objectFit: 'cover' }}

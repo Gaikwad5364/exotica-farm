@@ -97,7 +97,7 @@ export default function AboutPage() {
                                 className={styles.founderImageWrapper}
                             >
                                 <Image
-                                    src="/images/Founder.png"
+                                    src="/images/Founder-Suraj.png"
                                     alt="Suraj Kulkarni"
                                     fill
                                     style={{ objectFit: 'cover' }}
@@ -233,10 +233,10 @@ export default function AboutPage() {
                                     style={{ '--active-point-pos': `${progressPercentage}%` } as any}
                                 >
                                     <div>
-                                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '12px', fontSize: '1.4rem' }}>
+                                        <h4 style={{ color: 'var(--color-primary)', marginBottom: '12px', fontSize: '1.55rem' }}>
                                             {activeMilestone.achievement}
                                         </h4>
-                                        <p>{activeMilestone.description}</p>
+                                        <p style={{ fontSize: '1.15rem', lineHeight: '1.7' }}>{activeMilestone.description}</p>
                                     </div>
                                 </motion.div>
                             )}

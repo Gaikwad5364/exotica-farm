@@ -46,8 +46,31 @@ export default function Footer() {
 
                     <div className={styles.column}>
                         <h3>Follow Us</h3>
-                        <p>Stay updated with our latest harvest.</p>
-                        {/* Social Icons would go here */}
+                        <ul className={styles.linkList}>
+                            <li>
+                                <a
+                                    href="https://www.instagram.com/exotica_farms_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="premium-address-link"
+                                >
+                                    Instagram
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.linkedin.com/in/suraj-kulkarni-093747186?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="premium-address-link"
+                                >
+                                    LinkedIn
+                                </a>
+                            </li>
+                            <li>
+                                <span style={{ color: 'rgba(255, 255, 255, 0.8)' }}>YouTube</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 

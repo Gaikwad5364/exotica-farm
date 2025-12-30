@@ -28,7 +28,13 @@
     color: var(--color-primary);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0px;
+}
+
+.logo img {
+    object-fit: contain;
+    vertical-align: middle;
+    padding: 18px 0 10px 0;
 }
 
 .navLinks {
@@ -95,8 +101,8 @@
     }
 
     .logo img {
-        width: 80px !important;
-        height: 80px !important;
+        width: 125px !important;
+        height: 125px !important;
     }
 }
 
@@ -106,8 +112,8 @@
     }
 
     .logo img {
-        width: 60px !important;
-        height: 60px !important;
+        width: 95px !important;
+        height: 95px !important;
     }
 }
 

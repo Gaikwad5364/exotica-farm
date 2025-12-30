@@ -47,7 +47,7 @@ export default function Navbar() {
             <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
                 <div className={styles.container}>
                     <Link href="/" className={styles.logo}>
-                        <Image src="/images/logo.png" alt="Exotica Farms Logo" width={110} height={110} style={{ objectFit: 'contain' }} />
+                        <Image src="/images/logo.png" alt="Exotica Farms Logo" width={180} height={180} style={{ objectFit: 'contain' }} />
                         Exotica Farms
                     </Link>
 
