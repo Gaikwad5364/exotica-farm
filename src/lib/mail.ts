@@ -10,21 +10,23 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export async function sendAdminNotification(type: 'CONTACT' | 'FARM_VISIT', data: any) {
+export async function sendAdminNotification(type: 'CONTACT' | 'FARM_VISIT' | 'TESTIMONIAL', data: any) {
     try {
         const adminEmail = process.env.ADMIN_NOTIFY_EMAIL || process.env.ADMIN_EMAIL;
-        const subject = `New Exotica Farms ${type === 'FARM_VISIT' ? 'Farm Visit Request' : 'Enquiry'} - ${data.name}`;
+        let subject = `New Exotica Farms ${type === 'FARM_VISIT' ? 'Farm Visit Request' : (type === 'TESTIMONIAL' ? 'Testimonial Review' : 'Enquiry')} - ${data.name}`;
 
         let htmlContent = `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
                 <h2 style="color: #2e7d32;">New ${type.replace('_', ' ')} Submission</h2>
                 <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
                 <p><strong>Name:</strong> ${data.name}</p>
-                <p><strong>Email:</strong> ${data.email}</p>
+                ${data.email ? `<p><strong>Email:</strong> ${data.email}</p>` : ''}
+                ${data.role ? `<p><strong>Role:</strong> ${data.role}</p>` : ''}
+                ${data.rating ? `<p><strong>Rating:</strong> ${'⭐'.repeat(data.rating)} (${data.rating}/5)</p>` : ''}
                 ${data.phone ? `<p><strong>Phone:</strong> ${data.phone}</p>` : ''}
                 <p><strong>Message:</strong></p>
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 10px;">
-                    ${data.message}
+                    ${data.message || data.text}
                 </div>
         `;
 
@@ -38,6 +40,12 @@ export async function sendAdminNotification(type: 'CONTACT' | 'FARM_VISIT', data
                     <p><strong>Visitors:</strong> ${meta.visitors}</p>
                     <p><strong>Purpose:</strong> ${meta.purpose}</p>
                 </div>
+            `;
+        }
+
+        if (type === 'TESTIMONIAL') {
+            htmlContent += `
+                <p style="margin-top: 20px; color: #666; font-style: italic;">Note: This testimonial is currently in 'pending' status. Please login to the admin console to approve or reject it.</p>
             `;
         }
 

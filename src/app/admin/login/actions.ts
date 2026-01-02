@@ -8,21 +8,55 @@ import bcrypt from "bcryptjs";
 
 export async function loginAction(email: string, pass: string) {
     try {
-        // Ensure at least one admin exists (Using env vars for initial setup)
-        const adminCount = await prisma.admin.count();
-        if (adminCount === 0) {
-            const defaultEmail = process.env.ADMIN_EMAIL || "admin@exoticafarm.com";
-            const defaultPass = process.env.ADMIN_PASSWORD || "admin123";
-            const hashedPassword = await bcrypt.hash(defaultPass, 10);
+        const envEmail = process.env.ADMIN_EMAIL;
+        const envPass = process.env.ADMIN_PASSWORD;
 
+        if (!envEmail || !envPass) {
+            console.error("Missing ADMIN_EMAIL or ADMIN_PASSWORD in environment variables");
+            return { error: "Authentication configuration error" };
+        }
+
+        // Sync admin from environment variables
+        const existingAdmin = await prisma.admin.findUnique({
+            where: { email: envEmail }
+        });
+
+        if (!existingAdmin) {
+            // If the admin from .env doesn't exist, create it
+            const hashedPassword = await bcrypt.hash(envPass, 10);
             await prisma.admin.create({
                 data: {
-                    email: defaultEmail,
+                    email: envEmail,
                     passwordHash: hashedPassword
                 }
             });
+
+            // Cleanup old default admin if it was changed
+            const oldEmails = ["admin@exoticafarms.com", "admin@exoticafarm.com"];
+            for (const oldEmail of oldEmails) {
+                if (envEmail !== oldEmail) {
+                    try {
+                        await prisma.admin.delete({
+                            where: { email: oldEmail }
+                        });
+                    } catch (e) {
+                        // Ignore if it doesn't exist
+                    }
+                }
+            }
+        } else {
+            // If it exists, ensure the password matches the .env (in case it was changed)
+            const isPasswordMatch = await bcrypt.compare(envPass, existingAdmin.passwordHash);
+            if (!isPasswordMatch) {
+                const hashedPassword = await bcrypt.hash(envPass, 10);
+                await prisma.admin.update({
+                    where: { email: envEmail },
+                    data: { passwordHash: hashedPassword }
+                });
+            }
         }
 
+        // Now perform the actual login check against the database
         const admin = await prisma.admin.findUnique({
             where: { email }
         });

@@ -12,7 +12,7 @@ export async function submitTestimonialAction(data: {
     image?: string;
 }) {
     try {
-        await prisma.testimonial.create({
+        const testimonial = await prisma.testimonial.create({
             data: {
                 name: data.name,
                 role: data.role,
@@ -22,6 +22,8 @@ export async function submitTestimonialAction(data: {
                 status: 'pending'
             }
         });
+
+        await sendAdminNotification('TESTIMONIAL', data);
         revalidatePath('/testimonials');
         revalidatePath('/admin/dashboard');
         revalidatePath('/admin/testimonials');

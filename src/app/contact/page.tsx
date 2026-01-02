@@ -211,7 +211,7 @@ export default function ContactUsPage() {
                                 transition={{ delay: 0.4 }}
                             >
                                 <h3><Mail size={24} /> Email Us</h3>
-                                <p>hello@exoticafarm.com</p>
+                                <p>exoticafarms.in@gmail.com</p>
                             </motion.div>
                         </ScrollReveal>
 

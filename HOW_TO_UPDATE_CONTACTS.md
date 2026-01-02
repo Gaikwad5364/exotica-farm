@@ -135,7 +135,7 @@ After updating, verify these pages work correctly:
 
 **Line 92** - Display email:
 ```tsx
-<p>hello@exoticafarm.com</p>
+<p>exoticafarms.in@gmail.com</p>
 ```
 Change to:
 ```tsx
@@ -147,7 +147,7 @@ Change to:
 
 **Line 34** - Display email:
 ```tsx
-<li>✉️ hello@exoticafarm.com</li>
+<li>✉️ exoticafarms.in@gmail.com</li>
 ```
 Change to:
 ```tsx
@@ -285,7 +285,7 @@ Create a single constant file for contact details:
 export const CONTACT_INFO = {
   phone: '+91 77210 75329',
   whatsapp: '917721075329',
-  email: 'hello@exoticafarm.com',
+  email: 'exoticafarms.in@gmail.com',
   address: '123 Green Valley, Agri District'
 };
 ```

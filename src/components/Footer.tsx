@@ -10,7 +10,7 @@ export default function Footer() {
                         <h3>Exotica Farms</h3>
                         <p>
                             Leading the way in protected farming with state-of-the-art polyhouses and
-                            sustainable agricultural practices. delivering fresh produce directly from
+                            sustainable agricultural practices. Delivering fresh produce directly from
                             our farm to your table.
                         </p>
                     </div>
@@ -40,7 +40,7 @@ export default function Footer() {
                                 </a>
                             </li>
                             <li>📞 +91 77210 75329</li>
-                            <li>✉️ hello@exoticafarm.com</li>
+                            <li>✉️ exoticafarms.in@gmail.com</li>
                         </ul>
                     </div>
 
