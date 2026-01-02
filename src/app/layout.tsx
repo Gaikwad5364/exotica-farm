@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 import MainContentWrapper from "@/components/MainContentWrapper";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function RootLayout({
   children,
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
       <body className={inter.className}>
+        <LoadingScreen />
         <ConditionalNavbar />
         <MainContentWrapper>
           {children}

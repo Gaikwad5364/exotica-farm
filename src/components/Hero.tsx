@@ -27,7 +27,6 @@ const SLIDES = [
 
 export default function Hero() {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isLoaded, setIsLoaded] = useState(false);
     const [isManual, setIsManual] = useState(false);
     const [showScrollTop, setShowScrollTop] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -71,10 +70,6 @@ export default function Hero() {
     };
 
     useEffect(() => {
-        setIsLoaded(true);
-    }, []);
-
-    useEffect(() => {
         if (isManual) {
             const timer = setTimeout(() => setIsManual(false), 10000); // Resume auto after 10s
             return () => clearTimeout(timer);
@@ -84,8 +79,6 @@ export default function Hero() {
         const timer = setTimeout(nextSlide, currentSlide.duration);
         return () => clearTimeout(timer);
     }, [currentIndex, isManual]);
-
-    if (!isLoaded) return <section className={styles.hero} style={{ background: '#001a00' }}></section>;
 
     return (
         <section className={styles.hero}>
@@ -104,7 +97,9 @@ export default function Hero() {
                                 ref={videoRef}
                                 autoPlay
                                 muted
+                                loop
                                 playsInline
+                                preload="auto"
                                 onEnded={nextSlide}
                                 className={styles.media}
                             >
