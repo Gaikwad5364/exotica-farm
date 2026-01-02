@@ -138,42 +138,44 @@ export default function TestimonialsContent({ initialTestimonials }: { initialTe
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                    From home kitchens to Michelin-star restaurants, discover why people choose Exotica Farms.
+                    Real people. Real trust. Quality that speaks across farms and markets.
                 </motion.p>
             </section>
 
-            {/* Video Testimonials Section */}
-            <section className="container" style={{ marginBottom: '100px' }}>
-                <h2 className={styles.sectionTitle}>
-                    <Video size={32} className="text-primary" />
-                    Video Stories
-                </h2>
-                <div className={styles.videoGrid}>
-                    {VIDEO_REVIEWS.map((video, idx) => (
-                        <motion.div
-                            key={video.id}
-                            className={styles.videoCard}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: idx * 0.1 }}
-                            whileHover={{ y: -8, scale: 1.02 }}
-                        >
+            {/* Video Testimonials Section - Hidden until content is ready */}
+            {false && (
+                <section className="container" style={{ marginBottom: '100px' }}>
+                    <h2 className={styles.sectionTitle}>
+                        <Video size={32} className="text-primary" />
+                        Video Stories
+                    </h2>
+                    <div className={styles.videoGrid}>
+                        {VIDEO_REVIEWS.map((video, idx) => (
+                            <motion.div
+                                key={video.id}
+                                className={styles.videoCard}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                                whileHover={{ y: -8, scale: 1.02 }}
+                            >
 
-                            <div className={styles.videoThumbnail}>
-                                <img src={video.thumbnail} alt={video.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                <div className={styles.playButton}>
-                                    <Play fill="currentColor" size={24} />
+                                <div className={styles.videoThumbnail}>
+                                    <img src={video.thumbnail} alt={video.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    <div className={styles.playButton}>
+                                        <Play fill="currentColor" size={24} />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={styles.videoInfo}>
-                                <h4>{video.title}</h4>
-                                <p>{video.description}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </section>
+                                <div className={styles.videoInfo}>
+                                    <h4>{video.title}</h4>
+                                    <p>{video.description}</p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* Testimonials Wall */}
             <section className="container" style={{ marginBottom: '100px' }}>

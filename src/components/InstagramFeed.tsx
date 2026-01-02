@@ -18,10 +18,10 @@ const instagramPosts = [
         caption: 'Farm Life'
     },
     {
-        id: 2,
-        image: '/images/insta-img-2.jpeg',
-        link: 'https://www.instagram.com/reel/DMz43EWNOuJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-        caption: 'Fresh Harvest'
+        id: 6,
+        image: '/images/insta-img-6.jpg',
+        link: 'https://www.instagram.com/p/DESxTI7INJp/?igsh=MTlscXppbXBianFtZw==',
+        caption: 'Premium Exotic Produce'
     },
     {
         id: 3,
@@ -40,6 +40,12 @@ const instagramPosts = [
         image: '/images/insta-img-5.jpeg',
         link: 'https://www.instagram.com/p/DSKNhwXk480/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
         caption: 'Greenhouse'
+    },
+    {
+        id: 2,
+        image: '/images/insta-img-2.jpeg',
+        link: 'https://www.instagram.com/reel/DMz43EWNOuJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+        caption: 'Fresh Harvest'
     },
 ];
 

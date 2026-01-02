@@ -8,9 +8,9 @@ export const products = [
         slug: 'mushroom',
         details: {
             plantationTime: 'Year-round (Controlled Environment)',
-            growthPeriod: '3-4 weeks',
+            growthPeriod: '4-6 weeks',
             harvestingTime: 'Daily',
-            method: 'Polyhouse / Climate Controlled Rooms',
+            method: 'Climate Controlled Rooms',
             practices: 'Residue-free, Organic compost'
         }
     },
@@ -22,7 +22,7 @@ export const products = [
         image: '/images/Yellow Bellpepper.jpeg',
         slug: 'bell-pepper',
         details: {
-            plantationTime: 'August - September',
+            plantationTime: 'Year-round (Controlled Environment)',
             growthPeriod: '70-90 days',
             harvestingTime: 'Continuous for 6-8 months',
             method: 'Polyhouse',
@@ -32,12 +32,12 @@ export const products = [
     {
         id: '3',
         name: 'English Cucumber',
-        description: 'Crunchy and hydrating cucumbers harvested daily.',
-        longDescription: 'Seedless, thin-skinned English cucumbers. Perfect for salads and healthy snacking. Grown vertically to ensure straight fruits and uniform green color.',
+        description: 'Seedless, crunchy and hydrating cucumbers harvested daily.',
+        longDescription: 'Seedless, non-bitter, thin-skinned English cucumbers. Perfect for salads and healthy snacking. Grown vertically to ensure straight fruits and uniform green color.',
         image: '/images/cut-cucumber.jpeg',
         slug: 'cucumber',
         details: {
-            plantationTime: 'February - March / September - October',
+            plantationTime: 'Year-round (Controlled Environment)',
             growthPeriod: '35-45 days',
             harvestingTime: 'Daily for 3-4 months',
             method: 'Polyhouse / Shade Net',

@@ -148,7 +148,7 @@ export default function InfrastructurePage() {
                         <ScrollReveal direction="left" delay={0.2}>
                             <div className={styles.imageWrapper}>
                                 <Image
-                                    src="/images/open-farm-img.jpeg"
+                                    src="/images/open-farming.jpeg"
                                     alt="Open Farming at Exotica Farms"
                                     fill
                                     style={{ objectFit: 'cover' }}

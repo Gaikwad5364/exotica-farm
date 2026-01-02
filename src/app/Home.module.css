@@ -139,8 +139,11 @@
 
 .infraIcon {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
-    display: block;
+    margin: 0 auto 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80px;
 }
 
 .infraCard h3 {

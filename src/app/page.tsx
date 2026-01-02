@@ -27,7 +27,7 @@ export default function Home() {
     {
       id: '3',
       name: 'English Cucumber',
-      description: 'Crunchy and hydrating cucumbers harvested daily.',
+      description: 'Seedless, crunchy and hydrating cucumbers harvested daily.',
       image: '/images/cut-cucumber.jpeg',
       slug: 'cucumber'
     }
@@ -56,13 +56,13 @@ export default function Home() {
               </ScrollReveal>
               <ScrollReveal direction="left" delay={0.2}>
                 <p>
-                  Our journey began with a simple mission: to provide the freshest, chemical-free
-                  produce while preserving our soil and water resources. Today, we are proud to
+                  Our journey began with a simple mission: to provide the freshest, residue-free
+                  & export quality produce while preserving our soil and water resources. Today, we are proud to
                   be leaders in protected farming.
                 </p>
               </ScrollReveal>
               <ScrollReveal direction="left" delay={0.3}>
-                <Link href="/about" className={styles.storyLink}>
+                <Link href="/about#founder" className={styles.storyLink}>
                   <span>Read Our Full Story</span>
                   <i>→</i>
                 </Link>
@@ -105,7 +105,7 @@ export default function Home() {
               <ScrollReveal direction="right">
                 <div className={styles.ctaImageWrapper}>
                   <img
-                    src="/images/farm-visit-experience.png"
+                    src="/images/farm-visit.jpg"
                     alt="Visitors at Exotica Farms"
                     className={styles.ctaImg}
                   />
@@ -128,7 +128,7 @@ export default function Home() {
           </ScrollReveal>
           <ScrollReveal direction="up" delay={0.1}>
             <p className={styles.sectionSubtitle}>
-              Discover our premium range of vegetables and fungi, harvested at the peak of freshness.
+              Discover our premium range of exotic vegetables, harvested at the peak of freshness.
             </p>
           </ScrollReveal>
 
@@ -178,8 +178,9 @@ export default function Home() {
                 <span className={styles.accentText}>Consumer Trust</span>
                 <h2 className={styles.testimonialTitle}>See Why Our Customers Love Us</h2>
                 <p className={styles.testimonialLead}>
-                  "The quality of vegetables from Exotica Farms is unmatched.
-                  Fresh, crunchy, and you can really taste the difference of protected farming."
+                  "When I see the way Exotica Farms grows produce, I feel confident in their approach.
+                  The polyhouse is well maintained, the plants are healthy, and the focus on quality is clear at every stage.
+                  Bell peppers grown here reflect care, discipline, and the right farming practices."
                 </p>
                 <div className={styles.testimonialActions}>
                   <Link href="/testimonials" className={styles.testimonialButton_premium}>
@@ -213,7 +214,9 @@ export default function Home() {
           <div className={styles.infraGrid}>
             <ScrollReveal direction="up" delay={0.2}>
               <Link href="/infrastructure#polyhouses" className={styles.infraCard}>
-                <span className={styles.infraIcon}>🛖</span>
+                <span className={styles.infraIcon}>
+                  <Image src="/images/polyhouse-graphic-removebg-preview.png" alt="Polyhouse Icon" width={70} height={70} />
+                </span>
                 <h3>Polyhouses</h3>
                 <p>Climate controlled cultivation for sensitive crops like Capsicum.</p>
               </Link>

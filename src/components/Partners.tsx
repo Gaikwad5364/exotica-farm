@@ -6,32 +6,21 @@ import ScrollReveal from './ScrollReveal';
 interface TrustCardProps {
     name: string;
     imageSrc: string;
-    // quadrant mapping for 2x2 sprite: [xPos, yPos] where 0 is first, 1 is second
-    quadrant: [number, number];
     delay?: number;
 }
 
-const TrustCard: React.FC<TrustCardProps> = ({ name, imageSrc, quadrant, delay = 0 }) => {
-    // We calculate the negative offset for the absolute positioned image
-    // Assuming the viewport (wrapper) is 80px, the shift is -80px per quadrant
-    const left = quadrant[0] === 0 ? '0px' : '-80px';
-    const top = quadrant[1] === 0 ? '0px' : '-80px';
-
+const TrustCard: React.FC<TrustCardProps> = ({ name, imageSrc, delay = 0 }) => {
     return (
         <ScrollReveal direction="up" delay={delay}>
             <div className={styles.trustCard}>
                 <div className={styles.logoWrapper}>
-                    <div
-                        className={styles.logoSpriteContainer}
-                        style={{ left, top }}
-                    >
+                    <div className={styles.iconContainer}>
                         <Image
                             src={imageSrc}
                             alt={name}
-                            width={160} // 2x the wrapper width (80)
-                            height={160} // 2x the wrapper height (80)
-                            className={styles.logoImage}
-                            priority
+                            width={50}
+                            height={50}
+                            style={{ objectFit: 'contain' }}
                         />
                     </div>
                 </div>
@@ -43,17 +32,17 @@ const TrustCard: React.FC<TrustCardProps> = ({ name, imageSrc, quadrant, delay =
 
 export default function Partners() {
     const clients = [
-        { name: 'Green Mart', quad: [0, 0] as [number, number] },
-        { name: 'Organic Baskets', quad: [1, 0] as [number, number] },
-        { name: 'Fresh Choice', quad: [0, 1] as [number, number] },
-        { name: 'Nature\'s Pantry', quad: [1, 1] as [number, number] }
+        { name: 'Reliance Retail', image: '/images/relianceretail_logo.png' },
+        { name: 'Nourishing Farms', image: '/images/nourishingfarms_logo.jpg' },
+        { name: 'Wingrow', image: '/images/wingrow_logo.jpg' },
+        { name: 'Samartha', image: '/images/samrtha_logo-removebg-preview.png' }
     ];
 
     const ecosystemPartners = [
-        { name: 'AgriLab Solutions', quad: [0, 0] as [number, number] },
-        { name: 'BioSeed Tech', quad: [1, 0] as [number, number] },
-        { name: 'TechGrow Systems', quad: [0, 1] as [number, number] },
-        { name: 'FertiLink Agri', quad: [1, 1] as [number, number] }
+        { name: 'Rijk Zwaan', image: '/images/Rijkzwaan_logo.png' },
+        { name: 'Govind Green', image: '/images/govindgreen_logo.jpeg' },
+        { name: 'Vanita Agro', image: '/images/vanitaagro_logo.png' },
+        { name: 'Yaara', image: '/images/yaara_logo.jpg' }
     ];
 
     return (
@@ -78,8 +67,7 @@ export default function Partners() {
                                 <TrustCard
                                     key={client.name}
                                     name={client.name}
-                                    imageSrc="/images/client_logos.png"
-                                    quadrant={client.quad}
+                                    imageSrc={client.image}
                                     delay={0.05 * index}
                                 />
                             ))}
@@ -96,8 +84,7 @@ export default function Partners() {
                                 <TrustCard
                                     key={partner.name}
                                     name={partner.name}
-                                    imageSrc="/images/partner_logos.png"
-                                    quadrant={partner.quad}
+                                    imageSrc={partner.image}
                                     delay={0.05 * index}
                                 />
                             ))}

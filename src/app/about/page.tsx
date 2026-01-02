@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -27,49 +27,49 @@ const timelineData = [
         year: 'Jan 2022',
         size: '100 sq ft',
         achievement: 'The Beginning',
-        description: 'Started as a small experimental setup to test controlled environment farming. Focused on learning the fundamentals of hydroponics and protected cultivation.'
+        description: 'We started with a small experimental setup focused on mushroom cultivation. This phase was dedicated to understanding the fundamentals, techniques, and practical challenges of controlled farming.'
     },
     {
         id: 2,
         year: 'June 2022',
         size: '1,800 sq ft',
-        achievement: 'Commercial Validation',
-        description: 'Successfully expanded to a larger shade net area. Validated the commercial potential of premium bell peppers and established first local retail leads.'
+        achievement: 'Commercial Launch',
+        description: 'After successful trials, we moved into commercial mushroom production. This marked our first step from experimentation to a market-ready agricultural operation.'
     },
     {
         id: 3,
         year: 'May 2023',
         size: '8,000 sq ft',
-        achievement: 'Infrastructure Scale',
-        description: 'Transformed operations with multi-span polyhouses. Introduced European cucumbers and streamlined harvesting processes for higher consistency.'
+        achievement: 'Scaling & Market Expansion',
+        description: 'Mushroom cultivation was expanded to a larger area. During this phase, we established strong market connections and streamlined distribution channels.'
     },
     {
         id: 4,
         year: 'April 2024',
         size: '15,000 sq ft',
-        achievement: 'Operational Excellence',
-        description: 'Reached a major milestone in production capacity. Implemented advanced climate control systems to ensure premium quality regardless of external weather.'
+        achievement: 'Product Diversification',
+        description: 'We expanded beyond mushrooms by introducing English cucumbers. This milestone marked our entry into diversified, high-quality vegetable production.'
     },
     {
         id: 5,
         year: 'April 2025',
         size: '20,000 sq ft',
-        achievement: 'Strategic Expansion',
-        description: 'Currently scaling to dominate the regional exotic produce market. Focus on high-value crops with precision automation.'
+        achievement: 'Portfolio Expansion',
+        description: 'Bell peppers were added to our product range, strengthening our presence in premium vegetable cultivation. This step reflected our focus on variety, quality, and controlled farming practices.'
     },
     {
         id: 6,
         year: 'Aug 2025',
         size: '40,000 sq ft',
-        achievement: 'Market Leadership',
-        description: 'Targeted capacity to become the primary supply partner for major HORECA businesses and premium export-quality produce.'
+        achievement: 'Large-Scale Production',
+        description: 'Production of both English cucumbers and bell peppers was scaled up significantly. This phase represents our transition into large-scale, efficient, and sustainable farming operations.'
     }
 ];
 
 const specialityCrops = [
     { name: 'Mushroom', icon: ChefHat },
     { name: 'Bell Pepper', icon: Leaf },
-    { name: 'European Cucumber', icon: Sprout },
+    { name: 'English Cucumber', icon: Sprout },
     { name: 'Broccoli', icon: TreeDeciduous },
     { name: 'Red Cabbage', icon: Circle },
     { name: 'Lettuce', icon: Wind }
@@ -77,13 +77,104 @@ const specialityCrops = [
 
 export default function AboutPage() {
     const [activeMilestone, setActiveMilestone] = useState<any>(timelineData[0]);
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const [smoothProgress, setSmoothProgress] = useState(0);
     const activeIndex = activeMilestone ? timelineData.findIndex(m => m.id === activeMilestone.id) : -1;
-    const progressPercentage = activeIndex >= 0 ? (activeIndex / (timelineData.length - 1)) * 100 : 0;
+
+    useEffect(() => {
+        // Handle hash navigation on page load
+        const hash = window.location.hash;
+        if (hash) {
+            setTimeout(() => {
+                const element = document.querySelector(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    }, []);
+
+    // Optimized auto-play with requestAnimationFrame and Visibility API
+    useEffect(() => {
+        if (!isAutoPlaying) return;
+
+        let animationFrameId: number;
+        let startTime: number;
+        const duration = 5000;
+
+        const currentIndex = timelineData.findIndex(m => m.id === activeMilestone.id);
+        const nextIndex = (currentIndex + 1) % timelineData.length;
+
+        const startProgress = (currentIndex / (timelineData.length - 1)) * 100;
+        const endProgress = (nextIndex / (timelineData.length - 1)) * 100;
+
+        const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Linear movement for perfectly consistent speed across all intervals
+            const currentProgress = startProgress + (endProgress - startProgress) * progress;
+            setSmoothProgress(currentProgress);
+
+            if (progress < 1) {
+                animationFrameId = requestAnimationFrame(animate);
+            } else {
+                // Precise sync point: update content the moment line arrives
+                setActiveMilestone(timelineData[nextIndex]);
+                setSmoothProgress(endProgress);
+            }
+        };
+
+        // Pause animation when tab is not visible to prevent drift
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationFrameId);
+            } else {
+                startTime = 0; // Reset start time to resume smoothly
+                animationFrameId = requestAnimationFrame(animate);
+            }
+        };
+
+        animationFrameId = requestAnimationFrame(animate);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, [activeMilestone, isAutoPlaying]);
+
+    // Enhanced resume logic (scroll + user interaction)
+    useEffect(() => {
+        const handleInteraction = () => {
+            if (!isAutoPlaying) setIsAutoPlaying(true);
+        };
+
+        window.addEventListener('scroll', handleInteraction, { passive: true });
+        window.addEventListener('touchstart', handleInteraction, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', handleInteraction);
+            window.removeEventListener('touchstart', handleInteraction);
+        };
+    }, [isAutoPlaying]);
+
+    const handleMilestoneClick = (milestone: any) => {
+        const clickedIndex = timelineData.findIndex(m => m.id === milestone.id);
+        setActiveMilestone(milestone);
+        setSmoothProgress((clickedIndex / (timelineData.length - 1)) * 100);
+        setIsAutoPlaying(false);
+    };
+
+    const handleScreenClick = () => {
+        if (!isAutoPlaying) setIsAutoPlaying(true);
+    };
+
 
     return (
         <main className={styles.aboutContainer}>
             {/* Founder Section */}
-            <section className={styles.founderSection}>
+            <section id="founder" className={styles.founderSection}>
                 <div className={styles.container}>
                     <ScrollReveal direction="up">
                         <h2 className={styles.sectionTitle}>Founder</h2>
@@ -114,7 +205,7 @@ export default function AboutPage() {
                                 <div className={styles.founderStory}>
                                     <p>
                                         Hailing from a middle-class family with a rural village background,
-                                        Suraj Kulkarni completed his education in Pune and secured a stable government job.
+                                        Suraj Kulkarni completed his education in BA Economics Honor from Pune and secured a government job in Department of Post.
                                     </p>
                                     <p>
                                         Driven by a deep-seated interest in farming, he chose to leave his government
@@ -142,12 +233,12 @@ export default function AboutPage() {
                                     <h3 className={styles.storySubtitle}>Where Tradition Meets Technology</h3>
                                     <p>
                                         At Exotica Farms, we believe in the future of agriculture. By combining traditional
-                                        farming wisdom with cutting-edge polyhouse technology, we create the perfect
+                                        farming wisdom with cutting-edge greenhouse technology, we create the perfect
                                         environment for crops to thrive.
                                     </p>
                                     <p>
-                                        Our journey began with a simple mission: to provide the freshest, chemical-free
-                                        produce while preserving our soil and water resources. Today, we are proud to
+                                        Our journey began with a simple mission: to provide the freshest, residue-free &
+                                        export quality produce while preserving our soil and water resources. Today, we are proud to
                                         be leaders in protected farming.
                                     </p>
                                 </div>
@@ -157,7 +248,7 @@ export default function AboutPage() {
                                     <p>
                                         Exotica Farms is a pioneer in modern and sustainable farming practices,
                                         specializing in the cultivation of premium exotic vegetables. By leveraging
-                                        controlled cultivation techniques and state-of-the-art infrastructure,
+                                        controlled cultivation techniques and global agriculture practice,
                                         we ensure unparalleled quality, consistency, and nutritional value.
                                     </p>
                                     <span className={styles.storyHighlight}>
@@ -175,7 +266,7 @@ export default function AboutPage() {
             </section>
 
             {/* Growth Journey Section */}
-            <section className={`${styles.section} ${styles.timelineSection}`}>
+            <section className={`${styles.section} ${styles.timelineSection}`} onClick={handleScreenClick}>
                 <div className={styles.container}>
                     <ScrollReveal direction="up">
                         <h2 className={styles.sectionTitle}>Our Growth Journey</h2>
@@ -190,13 +281,16 @@ export default function AboutPage() {
                             <div className={styles.timelineLine}></div>
                             <div
                                 className={styles.timelineProgress}
-                                style={{ '--progress-percent': `${progressPercentage}%` } as any}
+                                style={{ '--progress-percent': `${smoothProgress}%`, transition: 'none' } as any}
                             ></div>
                             {timelineData.map((milestone) => (
                                 <div
                                     key={milestone.id}
                                     className={`${styles.timelinePoint} ${activeMilestone?.id === milestone.id ? styles.active : ''}`}
-                                    onClick={() => setActiveMilestone(activeMilestone?.id === milestone.id ? null : milestone)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleMilestoneClick(milestone);
+                                    }}
                                 >
                                     <div className={styles.pointCircle}></div>
                                     <div className={styles.pointText}>
@@ -221,18 +315,18 @@ export default function AboutPage() {
                             ))}
                         </div>
 
-                        <AnimatePresence mode="wait">
+                        <AnimatePresence>
                             {activeMilestone && (
                                 <motion.div
                                     key={activeMilestone.id}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
+                                    initial={{ opacity: 0, scale: 0.98 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.98 }}
                                     transition={{ duration: 0.4, ease: "easeOut" }}
                                     className={styles.milestoneDescription}
-                                    style={{ '--active-point-pos': `${progressPercentage}%` } as any}
+                                    style={{ '--active-point-pos': `${smoothProgress}%`, position: 'relative' } as any}
                                 >
-                                    <div>
+                                    <div style={{ width: '100%' }}>
                                         <h4 style={{ color: 'var(--color-primary)', marginBottom: '12px', fontSize: '1.55rem' }}>
                                             {activeMilestone.achievement}
                                         </h4>

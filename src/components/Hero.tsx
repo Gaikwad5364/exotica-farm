@@ -149,7 +149,7 @@ export default function Hero() {
                     transition={{ duration: 1, delay: 0.5 }}
                 >
                     <h1 className={styles.title}>
-                        Future of Sustainable <br /> Protected Farming
+                        Future of Sustainable <br /> Controlled Environment
                     </h1>
                     <p className={styles.subtitle}>
                         Premium quality Mushrooms, Bell Peppers, and Cucumbers <br />
