@@ -293,7 +293,7 @@ export default function AboutPage() {
                             <div className={styles.timelineLine}></div>
                             <div
                                 className={styles.timelineProgress}
-                                style={{ '--progress-percent': `${smoothProgress}%`, transition: 'none' } as any}
+                                style={{ '--progress-value': smoothProgress, transition: 'none' } as any}
                             ></div>
                             {timelineData.map((milestone) => (
                                 <div
@@ -339,7 +339,7 @@ export default function AboutPage() {
                                         ease: [0.22, 1, 0.36, 1] // Quintic ease-out for a smooth, premium feel
                                     }}
                                     className={styles.milestoneDescription}
-                                    style={{ '--active-point-pos': `${smoothProgress}%`, position: 'relative' } as any}
+                                    style={{ '--progress-value': (activeIndex / (timelineData.length - 1)) * 100, position: 'relative' } as any}
                                 >
                                     <div style={{ width: '100%' }}>
                                         <h4 style={{ color: 'var(--color-primary)', marginBottom: '12px', fontSize: '1.55rem' }}>
