@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import {
     Users,
     TrendingUp,
@@ -77,8 +77,11 @@ const specialityCrops = [
 
 export default function AboutPage() {
     const [activeMilestone, setActiveMilestone] = useState<any>(timelineData[0]);
-    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const [isAutoPlaying, setIsAutoPlaying] = useState(false);
     const [smoothProgress, setSmoothProgress] = useState(0);
+
+    const timelineSectionRef = useRef(null);
+    const isTimelineInView = useInView(timelineSectionRef, { amount: 0.3, once: true });
     const activeIndex = activeMilestone ? timelineData.findIndex(m => m.id === activeMilestone.id) : -1;
 
     useEffect(() => {
@@ -145,19 +148,24 @@ export default function AboutPage() {
         };
     }, [activeMilestone, isAutoPlaying]);
 
-    // Enhanced resume logic (scroll + user interaction)
+    // Start autoplay only when section is in view
+    useEffect(() => {
+        if (isTimelineInView) {
+            setIsAutoPlaying(true);
+        }
+    }, [isTimelineInView]);
+
+    // Simple interaction resume logic (touchstart only for mobile feel)
     useEffect(() => {
         const handleInteraction = () => {
-            if (!isAutoPlaying) setIsAutoPlaying(true);
+            if (!isAutoPlaying && isTimelineInView) setIsAutoPlaying(true);
         };
 
-        window.addEventListener('scroll', handleInteraction, { passive: true });
         window.addEventListener('touchstart', handleInteraction, { passive: true });
         return () => {
-            window.removeEventListener('scroll', handleInteraction);
             window.removeEventListener('touchstart', handleInteraction);
         };
-    }, [isAutoPlaying]);
+    }, [isAutoPlaying, isTimelineInView]);
 
     const handleMilestoneClick = (milestone: any) => {
         const clickedIndex = timelineData.findIndex(m => m.id === milestone.id);
@@ -266,7 +274,11 @@ export default function AboutPage() {
             </section>
 
             {/* Growth Journey Section */}
-            <section className={`${styles.section} ${styles.timelineSection}`} onClick={handleScreenClick}>
+            <section
+                ref={timelineSectionRef}
+                className={`${styles.section} ${styles.timelineSection}`}
+                onClick={handleScreenClick}
+            >
                 <div className={styles.container}>
                     <ScrollReveal direction="up">
                         <h2 className={styles.sectionTitle}>Our Growth Journey</h2>
@@ -315,14 +327,17 @@ export default function AboutPage() {
                             ))}
                         </div>
 
-                        <AnimatePresence>
+                        <AnimatePresence mode="wait">
                             {activeMilestone && (
                                 <motion.div
                                     key={activeMilestone.id}
-                                    initial={{ opacity: 0, scale: 0.98 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.98 }}
-                                    transition={{ duration: 0.4, ease: "easeOut" }}
+                                    initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+                                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                                    exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
+                                    transition={{
+                                        duration: 0.5,
+                                        ease: [0.22, 1, 0.36, 1] // Quintic ease-out for a smooth, premium feel
+                                    }}
                                     className={styles.milestoneDescription}
                                     style={{ '--active-point-pos': `${smoothProgress}%`, position: 'relative' } as any}
                                 >
